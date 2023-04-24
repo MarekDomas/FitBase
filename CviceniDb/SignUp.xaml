@@ -13,6 +13,6 @@
         <TextBox x:Name="NewPasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Label Content="Heslo znovu:" Height="35" FontSize="20" Margin="131,182,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128"/>
         <TextBox x:Name="CheckPasswd" Height="22" Margin="131,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="138"/>
-        <Button x:Name="FirstSignUp" Content="Zaregistrovat se" Width="95" Margin="0,263,0,0" HorizontalAlignment="Center" Height="25" VerticalAlignment="Top" />
+        <Button x:Name="FirstSignUp" Click="FirstSignUp_Click" Content="Zaregistrovat se" Width="95" Margin="0,263,0,0" HorizontalAlignment="Center" Height="25" VerticalAlignment="Top" />
     </Grid>
 </Window>

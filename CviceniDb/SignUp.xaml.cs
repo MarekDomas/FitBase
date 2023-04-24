@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace CviceniDb
     /// </summary>
     public partial class SignUp : Window
     {
+        private string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB.txt");
         public SignUp()
         {
             InitializeComponent();
@@ -26,7 +28,17 @@ namespace CviceniDb
 
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        private void FirstSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            User U = new User();
+            U.Name = NewNameBox.Text;
+            U.Passwd = NewPasswdBox.Text;
+            string userData = U.Name + U.Passwd + Environment.NewLine;
+            File.WriteAllText(path, userData);
+            this.Close();
         }
     }
 }
