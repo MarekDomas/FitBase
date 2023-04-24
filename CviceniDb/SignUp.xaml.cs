@@ -33,15 +33,22 @@ namespace CviceniDb
 
         private void FirstSignUp_Click(object sender, RoutedEventArgs e)
         {
-            User U = new User();
-            U.Name = NewNameBox.Text;
-            U.Passwd = NewPasswdBox.Text;
-            string userData = U.ToString();
-            byte[] userDatabyty = Encoding.UTF8.GetBytes(userData);
-            userData = Convert.ToBase64String(userDatabyty) + Environment.NewLine;
-            File.AppendAllText(path, userData);
+            if(NewPasswdBox.Text == CheckPasswd.Text)
+            {
+                User U = new User();
+                U.Name = NewNameBox.Text;
+                U.Passwd = NewPasswdBox.Text;
+                string userData = U.ToString();
+                byte[] userDatabyty = Encoding.UTF8.GetBytes(userData);
+                userData = Convert.ToBase64String(userDatabyty) + Environment.NewLine;
+                File.AppendAllText(path, userData);
 
-            this.Close();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Hesla se neshodují!");
+            }
         }
     }
 }
