@@ -24,5 +24,15 @@ namespace CviceniDb
         {
             InitializeComponent();
         }
+
+        private void SignIn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SignUp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

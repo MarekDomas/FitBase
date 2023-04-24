@@ -11,5 +11,7 @@
         <TextBox x:Name="NameBox" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Label Content="Heslo" FontSize="20" Margin="131,113,0,0" Height="36" Width="62" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <TextBox x:Name="PasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="SignIn" Click="SignIn_Click" Content="Přihlásit se" Width="65" Height="25" Margin="204,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="SignUp" Click="SignUp_Click" Content="Zaregistrovat se" Width="95" Height="25" Margin="104,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
     </Grid>
 </Window>
