@@ -15,7 +15,7 @@ namespace CviceniDb
 
         public override string ToString()
         {
-            return Name+" "+" "+Passwd;
+            return Name+" "+Passwd;
         }
     }
 }

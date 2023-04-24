@@ -36,8 +36,11 @@ namespace CviceniDb
             User U = new User();
             U.Name = NewNameBox.Text;
             U.Passwd = NewPasswdBox.Text;
-            string userData = U.ToString() + Environment.NewLine;
+            string userData = U.ToString();
+            byte[] userDatabyty = Encoding.UTF8.GetBytes(userData);
+            userData = Convert.ToBase64String(userDatabyty) + Environment.NewLine;
             File.AppendAllText(path, userData);
+
             this.Close();
         }
     }
