@@ -1,0 +1,18 @@
+﻿<Window x:Class="CviceniDb.SignUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CviceniDb"
+        mc:Ignorable="d"
+        Title="SignUp" Height="450" Width="400">
+    <Grid>
+        <Label Content="Jméno:" FontSize="20" Margin="131,51,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="NewNameBox" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Heslo:" FontSize="20" Margin="131,113,0,0" Height="36" Width="69" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <TextBox x:Name="NewPasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Heslo znovu:" Height="35" FontSize="20" Margin="131,182,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128"/>
+        <TextBox x:Name="CheckPasswd" Height="22" Margin="131,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="138"/>
+        <Button x:Name="FirstSignUp" Content="Zaregistrovat se" Width="95" Margin="0,263,0,0" HorizontalAlignment="Center" Height="25" VerticalAlignment="Top" />
+    </Grid>
+</Window>

@@ -10,32 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
 
 namespace CviceniDb
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interakční logika pro SignUp.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignUp : Window
     {
-        private string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DB.txt");
-        public MainWindow()
+        public SignUp()
         {
             InitializeComponent();
         }
 
-        private void SignIn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
-            SignUp SU = new SignUp();
-            SU.Show();
+
         }
     }
 }
