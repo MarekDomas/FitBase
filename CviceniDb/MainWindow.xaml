@@ -1,0 +1,15 @@
+﻿<Window x:Class="CviceniDb.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CviceniDb"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="400">
+    <Grid>
+        <Label Content="Jméno" FontSize="20" Margin="131,51,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <TextBox x:Name="NameBox" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Heslo" FontSize="20" Margin="131,113,0,0" Height="36" Width="62" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <TextBox x:Name="PasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+    </Grid>
+</Window>
