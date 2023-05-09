@@ -13,5 +13,7 @@
         <TextBox x:Name="PasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button x:Name="SignIn" Click="SignIn_Click" Content="Přihlásit se" Width="65" Height="25" Margin="204,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Button x:Name="SignUp" Click="SignUp_Click" Content="Vytvořit účet" Width="76" Height="25" Margin="123,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label x:Name="DebugLabel" FontSize="15" Margin="52,305,0,0" Height="92" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296"/>
+        <Label x:Name="DebugLabel2" FontSize="15" Width="64" Height="29" Margin="0,188,314,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
