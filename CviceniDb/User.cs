@@ -31,6 +31,11 @@ namespace CviceniDb
             File.AppendAllText(path,"1");
         }
 
+        public string ReturnUserFile()
+        {
+            string UserFileName = this.Name + ".txt";
+            return UserFileName;
+        }
 
         //Využívá se ve funkci DelaniUzivateluDoListu()
         public User(string aName, string aPasswd, int aId)
