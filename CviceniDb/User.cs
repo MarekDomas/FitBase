@@ -31,6 +31,8 @@ namespace CviceniDb
             File.AppendAllText(path,"1");
         }
 
+
+
         public string ReturnUserFile()
         {
             string UserFileName = this.Name + ".txt";
@@ -44,6 +46,7 @@ namespace CviceniDb
             Passwd = aPasswd;
             id = aId;
         }
+
 
 
         //Prázdný konstruktor používá

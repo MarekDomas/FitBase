@@ -23,6 +23,8 @@ namespace CviceniDb
     /// </summary>
     public partial class SignUp : Window
     {
+
+        //To jse v pici ja uz vubec nwm co to dela :(
        
         public SignUp()
         {
@@ -42,7 +44,12 @@ namespace CviceniDb
             {
                 MessageBox.Show("Tento uživatel už existuje");
             }
-
+            else if(NewPasswdBox.Text.Contains("|") || NewPasswdBox.Text.Contains(":"))
+            {
+                NewPasswdBox.Text = "";
+                CheckPasswd.Text = "";
+                MessageBox.Show("Heslo nemůže obsahovat : nebo |");
+            }
             else if (NewPasswdBox.Text == CheckPasswd.Text)
             {
 
