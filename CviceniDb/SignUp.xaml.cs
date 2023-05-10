@@ -29,13 +29,21 @@ namespace CviceniDb
             InitializeComponent();
         }
 
-        
+        //static string UserNamesFile = "Users.txt";
+        static string UserNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.txt");
+
         //Vytváří se nový uživatel a zapisuje se do souboru
         private async void FirstSignUp_Click(object sender, RoutedEventArgs e)
         {
+            
+            string ContentOfUserNamesFile = File.ReadAllText(UserNamesFile);
+            string[] UserNames = ContentOfUserNamesFile.Split(" ");
+            if (UserNames.Contains(NewNameBox.Text))
+            {
+                MessageBox.Show("Tento uživatel už existuje");
+            }
 
-
-            if (NewPasswdBox.Text == CheckPasswd.Text)
+            else if (NewPasswdBox.Text == CheckPasswd.Text)
             {
 
 
@@ -45,6 +53,8 @@ namespace CviceniDb
                 User U = new User();
                 U.Name = NewNameBox.Text;
                 U.Passwd = NewPasswdBox.Text;
+                File.AppendAllText(UserNamesFile, U.Name+ " ");
+
 
                 using (FileStream fs = File.Create(U.ReturnUserFile())) // Create the file if it doesn't exist
                 {

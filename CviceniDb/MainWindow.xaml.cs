@@ -26,14 +26,22 @@ namespace CviceniDb
     public partial class MainWindow : Window 
     {
         static string key = "b14ca5898a4e4133bbce2ea2315a1916";
-      
-        
 
+
+        static string UserNamesFile = "Users.txt";
 
       
         public MainWindow()
         {
-            
+            if(!File.Exists(UserNamesFile)) 
+            {
+                using (FileStream fs = File.Create(UserNamesFile)) // Create the file if it doesn't exist
+                {
+                    // Optionally, you can write some content to the file here
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }    
             InitializeComponent();
             
         }
