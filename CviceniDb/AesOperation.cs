@@ -5,6 +5,8 @@ using System.Text;
 
 namespace EncryptionDecryptionUsingSymmetricKey
 {
+
+    //Zdroj kodu: https://www.c-sharpcorner.com/article/encryption-and-decryption-using-a-symmetric-key-in-c-sharp/
     public class AesOperation
     {
         public static string EncryptString(string key, string plainText)

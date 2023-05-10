@@ -59,6 +59,8 @@ namespace CviceniDb
                 var encryptedString = AesOperation.EncryptString(key, userData) + Environment.NewLine;
                 File.AppendAllText(path, encryptedString);
 
+                MainWindow MW = new MainWindow();
+                MW.Show();
         
                 this.Close();
             }

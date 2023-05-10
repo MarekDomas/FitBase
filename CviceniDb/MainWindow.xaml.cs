@@ -30,7 +30,7 @@ namespace CviceniDb
         
 
 
-        //Array.Resize(ref Users, Users.Length - 1);
+      
         public MainWindow()
         {
             
@@ -93,6 +93,7 @@ namespace CviceniDb
         {
             SignUp SU = new SignUp();
             SU.Show();
+            this.Close ();
         }
     }
 }

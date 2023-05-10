@@ -25,7 +25,7 @@ namespace CviceniDb
         {
             InitializeComponent();
             U = u;
-            UserNameBox.Content = "Jméno: "+U.Name;
+            UserNameBox.Content = "Vítáme vás "+U.Name;
         }
     }
 }
