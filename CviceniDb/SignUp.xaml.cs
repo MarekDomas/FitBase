@@ -65,23 +65,26 @@ namespace CviceniDb
 
                 var key = "b14ca5898a4e4133bbce2ea2315a1916";
 
-                //Vytváření nové instance
+                //Vytváření nové instance. Prázdný konstruktor se může používat jenom tady
                 User U = new User();
                 U.Name = NewNameBox.Text;
                 U.Passwd = NewPasswdBox.Text;
+                
+                // Zapsání do souboru se jmény
                 File.AppendAllText(UserNamesFile, U.Name+ " ");
 
-
-                using (FileStream fs = File.Create(U.ReturnUserFile())) // Create the file if it doesn't exist
+                //Vytvoření souboru pro nového uživatele
+                using (FileStream fs = File.Create(U.ReturnUserFile())) 
                 {
-                    // Optionally, you can write some content to the file here
                     byte[] content = Encoding.UTF8.GetBytes("");
                     fs.Write(content, 0, content.Length);
                 }
-                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, U.ReturnUserFile());
-                //Převádění do Base64
-                string userData = U.ToString(); /*"Konecradku"*/
                 
+                string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, U.ReturnUserFile());
+                
+                string userData = U.ToString();
+                
+                //Zašifrování dat a zapsání do souboru
                 var encryptedString = AesOperation.EncryptString(key, userData) + Environment.NewLine;
                 File.AppendAllText(path, encryptedString);
 
