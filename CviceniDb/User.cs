@@ -32,7 +32,7 @@ namespace CviceniDb
         }
 
 
-
+        //Jmno souboru uživatele
         public string ReturnUserFile()
         {
             string UserFileName = this.Name + ".txt";
