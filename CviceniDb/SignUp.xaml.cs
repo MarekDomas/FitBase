@@ -24,7 +24,7 @@ namespace CviceniDb
     public partial class SignUp : Window
     {
 
-        //To jse v pici ja uz vubec nwm co to dela :(
+        
        
         public SignUp()
         {
