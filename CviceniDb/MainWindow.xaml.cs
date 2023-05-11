@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -33,11 +33,12 @@ namespace CviceniDb
       
         public MainWindow()
         {
+        
+            //Vytvoření souboru se jmény uživatelů pokud není
             if(!File.Exists(UserNamesFile)) 
             {
-                using (FileStream fs = File.Create(UserNamesFile)) // Create the file if it doesn't exist
+                using (FileStream fs = File.Create(UserNamesFile)) 
                 {
-                    // Optionally, you can write some content to the file here
                     byte[] content = Encoding.UTF8.GetBytes("");
                     fs.Write(content, 0, content.Length);
                 }
@@ -53,7 +54,7 @@ namespace CviceniDb
 
             try
             {
-
+                //Najde soubor uživatele, je ve chráněném bloku protože když napíšete jméno neexistujícího uživatele program spadne
                 string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameBox.Text + ".txt");
                 DBcontentHashed = File.ReadAllText(path);
             }
@@ -61,12 +62,16 @@ namespace CviceniDb
             {
                 DebugLabel.Content = "Nelze se přihlásit";
             }
+            
+            //Rozšifruje data ze souboru
             string DBcontentUnhashed = AesOperation.DecryptString(key, DBcontentHashed);
             string[] Users = DBcontentUnhashed.Split("UserEnd");
-
+            
             List<User> Uzivatele = new List<User>();
 
             Users = Users.Take(Users.Length - 1).ToArray();
+            
+            //Rozdělí data ze souboru dá je do instance a uloží do listu
             foreach (string cast in Users)
             {
                 string[] keyValuePairs = cast.Split('|');
@@ -79,12 +84,12 @@ namespace CviceniDb
                 Uzivatele.Add(user);
             }
             
-
+            
             foreach (User user in Uzivatele)
             {
+                //Úspěšné přihlášení uživatele
                 if (NameBox.Text == user.Name && PasswdBox.Text == user.Passwd)
                 {
-                    
                     UserInfo userInfo = new UserInfo(user);
                     userInfo.Show();
                     
@@ -97,6 +102,8 @@ namespace CviceniDb
             
         }
 
+
+        //Otevře okno pro vytvoření uživatele
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
             SignUp SU = new SignUp();
