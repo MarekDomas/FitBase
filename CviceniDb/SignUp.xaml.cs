@@ -30,8 +30,12 @@ namespace CviceniDb
         {
             InitializeComponent();
         }
-
+        
+        
+        
         //static string UserNamesFile = "Users.txt";
+        
+        //Soubor kde jsou uložená jména uživatelů, používá se ke kontrole jestli uživatel už existuje
         static string UserNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.txt");
 
         //Vytváří se nový uživatel a zapisuje se do souboru
@@ -40,16 +44,21 @@ namespace CviceniDb
             
             string ContentOfUserNamesFile = File.ReadAllText(UserNamesFile);
             string[] UserNames = ContentOfUserNamesFile.Split(" ");
+            
+            // Kontrola jestli uživatel už existuje
             if (UserNames.Contains(NewNameBox.Text))
             {
                 MessageBox.Show("Tento uživatel už existuje");
             }
+            //Heslo nemůže obsahovat : nebo | protože by to dělalo bordel při rozdělování dat
             else if(NewPasswdBox.Text.Contains("|") || NewPasswdBox.Text.Contains(":"))
             {
                 NewPasswdBox.Text = "";
                 CheckPasswd.Text = "";
                 MessageBox.Show("Heslo nemůže obsahovat : nebo |");
             }
+            
+            //Vytváření uživatele a zapisování do vlastního souboru
             else if (NewPasswdBox.Text == CheckPasswd.Text)
             {
 
