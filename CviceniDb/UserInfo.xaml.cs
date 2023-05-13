@@ -23,15 +23,16 @@ namespace CviceniDb
         public static User U = new User(isTestUser);
         public UserInfo(User u)
         {
-            Lift Cvik = new Lift();
-            Cvik.Weight = 100;
-            Cvik.NameOfLift = "BENCH";
-            Cvik.Reps = 10;
-            Cvik.Sets = 3;
-
             InitializeComponent();
             U = u;
             UserNameBox.Content = "Vítáme vás "+U.Name;
+        }
+
+        private void AddTraining_Click(object sender, RoutedEventArgs e)
+        {
+            AddTrainingWin AT = new AddTrainingWin();
+            AT.Show();
+            this.Close();
         }
     }
 }

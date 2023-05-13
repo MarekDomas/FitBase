@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CviceniDb
 {
+    [Serializable]
     public class Lift : INotifyPropertyChanged
     {
         public string NameOfLift { get; set; }
@@ -14,7 +15,7 @@ namespace CviceniDb
         public int Sets { get; set; }
         public float Weight { get; set; }
 
-        public DateOnly Date { get; set; }
+        
 
         public event PropertyChangedEventHandler? PropertyChanged;
         //public TimeSpan Rest { get; set; }

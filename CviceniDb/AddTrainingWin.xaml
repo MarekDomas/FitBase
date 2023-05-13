@@ -1,0 +1,36 @@
+﻿<Window x:Class="CviceniDb.AddTrainingWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CviceniDb"
+        mc:Ignorable="d"
+        Title="AddTrainingWin" Height="450" Width="800">
+    <Grid>
+        <Label Content="Zadejte datum tréningu: " FontWeight="DemiBold"  FontSize="15" Margin="61,35,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
+        <DatePicker HorizontalAlignment="Left" Margin="61,88,0,0" VerticalAlignment="Top"/>
+        <Label Content="Zadejte jméno tréningu: " FontWeight="DemiBold" FontSize="15" Margin="61,133,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
+        <TextBox Height="25" x:Name="NameOfTrainingBox" Margin="61,192,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
+        <Button x:Name="Hotovo" Content="Hotovo" Height="25" Click="Hotovo_Click" Margin="61,345,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
+        <Button x:Name="AddLiftsButt" Click="AddLiftsButt_Click" Content="Přidejte cviky" Height="25" Margin="61,251,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113" />
+
+        <Label Content="Zobrazí vaše cviky potom co je zadáte" FontSize="15" FontWeight="SemiBold" Margin="361,35,166,367"/>
+
+        <ListView 
+        x:Name="Seznam"
+        Width="300" 
+            Margin="361,88,0,0" Height="282" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding NameOfLift}" FontWeight="Bold" Margin="5,0"/>
+                        <TextBlock Text="{Binding Reps}"  Margin="5,0"/>
+                        <TextBlock Text="{Binding Sets}" Margin="5,0"/>
+                        <TextBlock Text="{Binding Weight}" Margin="5,0"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</Window>

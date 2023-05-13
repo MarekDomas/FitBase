@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="UserInfo" Height="450" Width="800">
     <Grid>
-        <Label x:Name="UserNameBox" FontSize="16" Margin="56,71,0,0" Height="Auto" BorderBrush="Black" BorderThickness="2" VerticalAlignment="top" HorizontalAlignment="Left" Width="auto"/>
+        <Label x:Name="UserNameBox" FontSize="16" Margin="510,60,0,0" Height="Auto" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="auto"/>
 
         <!--<ListView  x:Name="WorkoutsList" Height="324" VerticalAlignment="Center" HorizontalAlignment="Center" Width="274" />-->
 
-        <Button x:Name="AddWorkout" Height="25" Content="Add workout" Margin="559,354,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78"/>
+        <Button x:Name="AddTraining" Click="AddTraining_Click" Height="25" Content="Add workout" Margin="554,359,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78"/>
 
         <ListView 
         x:Name="Seznam"
@@ -20,7 +20,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
-                        <TextBlock Text="{Binding NameOfLift}" Margin="5,0"/>
+                        <TextBlock Text="{Binding NameOfTraining}" Margin="5,0"/>
                         <TextBlock Text="{Binding Date}" FontWeight="Bold" Margin="5,0"/>
                     </WrapPanel>
                 </DataTemplate>
