@@ -30,5 +30,10 @@ namespace CviceniDb
             string FileOfLifts = NameOfTraining + ".xml";
             return FileOfLifts;
         }
+
+        /*public override string ToString()
+        {
+            return Da
+        }*/
     }
 }

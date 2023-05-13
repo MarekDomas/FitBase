@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +21,17 @@ namespace CviceniDb
     /// </summary>
     public partial class CreateLiftWin : Window
     {
+
+        private static string TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
+
+        private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
+        private static string[] Cviky = CvikyStr.Split("|||");
+
         public CreateLiftWin()
         {
-
             InitializeComponent();
+            Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
+            LiftsBox.ItemsSource = Cviky.Select(option => new ComboBoxItem { Content = option });
         }
     }
 }

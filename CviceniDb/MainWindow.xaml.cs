@@ -118,10 +118,15 @@ namespace CviceniDb
                 }
             }
 
-            foreach (string cvik in cviky)
+            if (File.ReadAllText(TypesOfLiftsFile) == "")
             {
-                File.AppendAllText(TypesOfLiftsFile, cvik + "|||");
+                foreach (string cvik in cviky)
+                {
+                    File.AppendAllText(TypesOfLiftsFile, cvik + "|||");
+                }
             }
+
+            
 
             InitializeComponent();
             

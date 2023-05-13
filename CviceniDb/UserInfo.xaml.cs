@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +21,37 @@ namespace CviceniDb
     public partial class UserInfo : Window
     {
         static bool isTestUser = true;
-        public static User U = new User(isTestUser);
+        private static User U = new User(isTestUser);
+
+        //static string UsersTrainingFile = U.Name + ".xml";
+
+
         public UserInfo(User u)
         {
+
             InitializeComponent();
             U = u;
+            string UsersTrainingFile = U.Name + ".xml";
+            if (!File.Exists(UsersTrainingFile))
+            {
+                using (FileStream fs = File.Create(UsersTrainingFile))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+
             UserNameBox.Content = "Vítáme vás "+U.Name;
+        }
+
+        public UserInfo()
+        {
+            InitializeComponent();
         }
 
         private void AddTraining_Click(object sender, RoutedEventArgs e)
         {
-            AddTrainingWin AT = new AddTrainingWin();
+            AddTrainingWin AT = new AddTrainingWin(U);
             AT.Show();
             this.Close();
         }
