@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace CviceniDb
 {
@@ -21,25 +22,37 @@ namespace CviceniDb
     /// </summary>
     public partial class CreateLiftWin : Window
     {
-
+        //Přidává cviky do drop menu
         private static string TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
-
         private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
         private static string[] Cviky = CvikyStr.Split("|||");
+        private static string NameOfCurrentTraining = "";
 
-        public CreateLiftWin()
+        private static Training T = new Training();
+        private static string LiftsFile = "";
+
+        private static User U = new User();
+        private static DateOnly DO = new DateOnly();
+
+        public CreateLiftWin(string NameOfTraining, DateOnly DatumTreningu,User u)
         {
+            //T = t;
+            U = u;
+            DO = DatumTreningu;
+            NameOfCurrentTraining = NameOfTraining;
             InitializeComponent();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
             LiftsBox.ItemsSource = Cviky.Select(option => new ComboBoxItem { Content = option });
+            LiftsFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfCurrentTraining + "Lifts" + ".xml");
         }
 
         private void PřidatButt_Click(object sender, RoutedEventArgs e)
         {
+            Lift L = new Lift();
             try
             {
-                Lift L = new Lift();
-                L.NameOfLift = LiftsBox.SelectedItem.ToString();
+                string LiftsBoxContent = LiftsBox.SelectedIndex.ToString();
+                L.NameOfLift = LiftsBoxContent.Substring(LiftsBoxContent.IndexOf(':') + 2); 
                 L.Reps = int.Parse(RepsBox.Text);
                 L.Sets = int.Parse(SetsBox.Text);
                 L.Weight = int.Parse(WeightBox.Text);
@@ -51,6 +64,43 @@ namespace CviceniDb
                 SetsBox.Text = string.Empty;
                 WeightBox.Text = string.Empty;
             }
+
+            
+
+            string LiftsFileContent = File.ReadAllText(LiftsFile);
+
+            if(LiftsFileContent != "")
+            {
+                string XMLSoub = File.ReadAllText(LiftsFile);
+
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
+                StringReader stringReader = new StringReader(XMLSoub);
+                List<Lift> result = (List<Lift>)serializer2.Deserialize(stringReader);
+                result.Add(L);
+
+                StringWriter stringWriter = new StringWriter();
+                serializer2.Serialize(stringWriter, result);
+                string newXml = stringWriter.ToString();
+
+                File.WriteAllText(LiftsFile, newXml);
+            }
+            else
+            {
+                List<Lift> ListOfL = new List<Lift>();
+                ListOfL.Add(L);
+                
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Lift>));
+                using (TextWriter writer = new StreamWriter(LiftsFile))
+                {
+                    serializer.Serialize(writer, ListOfL);
+                }
+            }
+
+            AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining,DO,U);
+            AT.Show();
+            this.Close();
+
+
         }
     }
 }

@@ -82,6 +82,8 @@ namespace CviceniDb
                 }
             }
 
+            
+
 
 
             string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
@@ -182,7 +184,7 @@ namespace CviceniDb
                 }
             }
 
-            //Pokračovat tady!!!
+            
             else
             {
                 string XMLSoub = File.ReadAllText(UsersTrainingFile);

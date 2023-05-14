@@ -26,12 +26,37 @@ namespace CviceniDb
         string NumberOfTrainings = File.ReadAllText(TrainingNamesFile);
         static bool isTestUser = true;
         private static User U = new User(isTestUser);
-
+        private static string CurrentTrainingName = "";
+        private static Training T = new Training();
 
         public AddTrainingWin(User u)
         {
             U = u;
+
+           
+
             InitializeComponent();
+        }
+
+        public AddTrainingWin(string NameOfTraining, DateOnly DatumTreningu,User u)
+        {
+            U = u;
+            InitializeComponent ();
+            NameOfTrainingBox.Text = NameOfTraining;
+
+            string XMLSoub =  System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining + "Lifts" + ".xml");
+            string XMLSoubContent = File.ReadAllText(XMLSoub);
+
+            if(XMLSoubContent != "")
+            {
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
+                StringReader stringReader = new StringReader(XMLSoub);
+                List<Lift> result = (List<Lift>)serializer2.Deserialize(stringReader);
+
+                Seznam.ItemsSource = result;
+            }
+
+            //DateOfTrainingPick.SetValue(DatePicker.SelectedDateProperty,DatumTreningu);
         }
 
         private void Hotovo_Click(object sender, RoutedEventArgs e)
@@ -40,7 +65,9 @@ namespace CviceniDb
             string FileName = "";
 
             Training NewTraining = new Training();
-            NewTraining.DateOfTraining = DateOnly.FromDateTime( DateOfTrainingPick.SelectedDate.Value);
+            DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value;
+            DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);
+            NewTraining.DateOfTraining = CurrentTrainingDate;
 
 
             if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
@@ -79,7 +106,19 @@ namespace CviceniDb
                 serializer.Serialize(writer, NewTraining);
             }
 
+            //Pokračovat tady!!!
+            string TrainingLiftsFile = NewTraining.NameOfTraining + "Lifts" + ".xml";
+            if (!File.Exists(TrainingLiftsFile ))
+            {
+                using (FileStream fs = File.Create(TrainingLiftsFile))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
 
+            T.NameOfTraining = NewTraining.NameOfTraining;
+            //T.OwnerOfTraining = NewTraining.OwnerOfTraining;
 
             File.AppendAllText(TrainingNamesFile, "1");
 
@@ -89,9 +128,25 @@ namespace CviceniDb
 
         }
 
+        
+        
+
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
-            CreateLiftWin CL = new CreateLiftWin();
+            CurrentTrainingName = NameOfTrainingBox.Text;
+            DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value;
+            DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);
+
+            string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
+            if (!File.Exists(TrainingLiftsFile))
+            {
+                using (FileStream fs = File.Create(TrainingLiftsFile))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+            CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,CurrentTrainingDate,U);
             CL.Show();
             this.Close();
         }
