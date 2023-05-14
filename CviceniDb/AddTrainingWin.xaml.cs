@@ -40,7 +40,7 @@ namespace CviceniDb
             string FileName = "";
 
             Training NewTraining = new Training();
-            NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value;
+            NewTraining.DateOfTraining = DateOnly.FromDateTime( DateOfTrainingPick.SelectedDate.Value);
 
 
             if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
@@ -70,6 +70,8 @@ namespace CviceniDb
 
             }
 
+            NewTraining.OwnerOfTraining = U.Name;
+
             XmlSerializer serializer = new XmlSerializer(typeof(Training));
             
             using (TextWriter writer = new StreamWriter(FileName))
@@ -77,9 +79,11 @@ namespace CviceniDb
                 serializer.Serialize(writer, NewTraining);
             }
 
+
+
             File.AppendAllText(TrainingNamesFile, "1");
 
-            UserInfo USI = new UserInfo(U);
+            UserInfo USI = new UserInfo(U, FileName);
             USI.Show();
             this.Close();
 

@@ -33,5 +33,24 @@ namespace CviceniDb
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
             LiftsBox.ItemsSource = Cviky.Select(option => new ComboBoxItem { Content = option });
         }
+
+        private void PřidatButt_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Lift L = new Lift();
+                L.NameOfLift = LiftsBox.SelectedItem.ToString();
+                L.Reps = int.Parse(RepsBox.Text);
+                L.Sets = int.Parse(SetsBox.Text);
+                L.Weight = int.Parse(WeightBox.Text);
+            }
+            catch 
+            {
+                MessageBox.Show("Zadejte správné informace");
+                RepsBox.Text = string.Empty;
+                SetsBox.Text = string.Empty;
+                WeightBox.Text = string.Empty;
+            }
+        }
     }
 }

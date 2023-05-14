@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace CviceniDb
 {
@@ -23,6 +24,46 @@ namespace CviceniDb
         static bool isTestUser = true;
         private static User U = new User(isTestUser);
 
+        /*private static ListView GetSeznam()
+        {
+            return Seznam;
+        }*/
+
+        #region
+        private static void LoadTrainings(ListView seznam, string UsersTrainingFile)
+        {
+            //string UsersTrainingFile = uzivatel.Name + ".xml";
+            string XMLSoub = File.ReadAllText(UsersTrainingFile);
+
+            XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
+            StringReader stringReader = new StringReader(XMLSoub);
+            List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+
+
+            List<string> SouboryTreningu = new List<string>();
+            foreach (string Sou in result)
+            {
+                SouboryTreningu.Add(Sou + ".xml");
+                //string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Sou + ".xml");
+
+            }
+
+            XmlSerializer serializer3 = new XmlSerializer(typeof(Training));
+            List<Training> Treningy = new List<Training>();
+
+            foreach (string file in SouboryTreningu)
+            {
+                using (StreamReader reader = new StreamReader(file))
+                {
+                    Training obj = (Training)serializer3.Deserialize(reader);
+                    Treningy.Add(obj);
+                    // Add obj to your ListView here
+                }
+            }
+
+            seznam.ItemsSource = Treningy;
+        }
+        #endregion
         //static string UsersTrainingFile = U.Name + ".xml";
 
 
@@ -41,12 +82,140 @@ namespace CviceniDb
                 }
             }
 
+
+
+            string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
+
+            if(UsersTrainingFileContent != "")
+            {
+                string XMLSoub = File.ReadAllText(UsersTrainingFile);
+
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
+                StringReader stringReader = new StringReader(XMLSoub);
+                List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+
+
+                List<string> SouboryTreningu = new List<string>();
+                foreach (string Sou in result)
+                {
+                    SouboryTreningu.Add(Sou + ".xml");
+                    //string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Sou + ".xml");
+
+                }
+
+                XmlSerializer serializer3 = new XmlSerializer(typeof(Training));
+                List<Training> Treningy = new List<Training>();
+
+                foreach (string file in SouboryTreningu)
+                {
+                    using (StreamReader reader = new StreamReader(file))
+                    {
+                        Training obj = (Training)serializer3.Deserialize(reader);
+                        Treningy.Add(obj);
+                        // Add obj to your ListView here
+                    }
+                }
+
+
+                Seznam.ItemsSource = Treningy;
+            }
+           
+
+
+            //string CurrentUsersFile = U.Name + ".xml";
+
             UserNameBox.Content = "Vítáme vás "+U.Name;
         }
 
-        public UserInfo()
+        public UserInfo(User u, string NameOfFile)
         {
+            Training T = new Training();
+            T.NameOfTraining = NameOfFile.Split(".")[0];
             InitializeComponent();
+
+            U = u;
+            string UsersTrainingFile = U.Name + ".xml";
+            if (!File.Exists(UsersTrainingFile))
+            {
+                using (FileStream fs = File.Create(UsersTrainingFile))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+
+
+            /*
+            XmlSerializer serializer = new XmlSerializer(typeof(Training));
+
+
+            
+            using (Stream reader = new FileStream(NameOfFile, FileMode.Open))
+            {
+               T = (Training)serializer.Deserialize(reader);
+
+            }
+
+            List<Training> Trainings = new List<Training>();
+
+            Trainings.Add(T);
+
+            Seznam.ItemsSource = Trainings;*/
+
+            
+
+
+            
+
+
+            string UsersFileContent = File.ReadAllText(UsersTrainingFile);
+
+            if(UsersFileContent == "") 
+            {
+                List<string> L= new List<string>();
+                L.Add(T.NameOfTraining);
+                XmlSerializer UsersTrainings = new XmlSerializer(typeof(List<string>));
+
+                using (StreamWriter writer = new StreamWriter(UsersTrainingFile))
+                {
+                    UsersTrainings.Serialize(writer, L);
+                }
+            }
+
+            //Pokračovat tady!!!
+            else
+            {
+                string XMLSoub = File.ReadAllText(UsersTrainingFile);
+
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
+                StringReader stringReader = new StringReader(XMLSoub);
+                List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+                result.Add(T.NameOfTraining);
+
+                StringWriter stringWriter = new StringWriter();
+                serializer2.Serialize(stringWriter, result);
+                string newXml = stringWriter.ToString();
+
+                File.WriteAllText(UsersTrainingFile, newXml);
+
+                /*
+                XmlSerializer trap = new XmlSerializer(typeof(List<string>));
+                using (StreamWriter sw = new StreamWriter("KOKOS.xml"))
+                {
+                    trap.Serialize(sw, result);
+                }*/
+                /*
+                using (TextWriter writer = new StreamWriter(UsersTrainingFile,true,Encoding.UTF8))
+                {
+                    writer.WriteLine(Environment.NewLine + "<string>" + T.NameOfTraining + "</string>");
+                }*/
+            }
+
+
+
+            LoadTrainings(Seznam, UsersTrainingFile);
+
+            UserNameBox.Content = "Vítáme vás " + U.Name;
         }
 
         private void AddTraining_Click(object sender, RoutedEventArgs e)
