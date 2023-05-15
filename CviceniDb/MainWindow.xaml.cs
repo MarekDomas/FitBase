@@ -32,6 +32,7 @@ namespace CviceniDb
         private static string ListOfTrainingsFile = "Trainings.xml";
         private static string TrainingNamesFile = "Trainings.txt";
         private static string TypesOfLiftsFile = "Lifts.txt";
+        private static string IdsFile = "IDs.txt";
         string[] cviky = {
                         "Dřep s činkou",
                         "Mrtvý tah",
@@ -85,6 +86,15 @@ namespace CviceniDb
             if(!File.Exists(UserNamesFile)) 
             {
                 using (FileStream fs = File.Create(UserNamesFile)) 
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+
+            if (!File.Exists(IdsFile))
+            {
+                using (FileStream fs = File.Create(IdsFile))
                 {
                     byte[] content = Encoding.UTF8.GetBytes("");
                     fs.Write(content, 0, content.Length);

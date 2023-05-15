@@ -32,13 +32,13 @@ namespace CviceniDb
         private static string LiftsFile = "";
 
         private static User U = new User();
-        private static DateOnly DO = new DateOnly();
+        private static DateTime DT = new DateTime();
 
-        public CreateLiftWin(string NameOfTraining, DateOnly DatumTreningu,User u)
+        public CreateLiftWin(string NameOfTraining, DateTime DatumTreningu,User u)
         {
             //T = t;
             U = u;
-            DO = DatumTreningu;
+            DT = DatumTreningu;
             NameOfCurrentTraining = NameOfTraining;
             InitializeComponent();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
@@ -51,8 +51,9 @@ namespace CviceniDb
             Lift L = new Lift();
             try
             {
-                string LiftsBoxContent = LiftsBox.SelectedIndex.ToString();
+                string LiftsBoxContent = LiftsBox.SelectedItem.ToString();
                 L.NameOfLift = LiftsBoxContent.Substring(LiftsBoxContent.IndexOf(':') + 2); 
+                //L.NameOfLift = LiftsBoxContent;
                 L.Reps = int.Parse(RepsBox.Text);
                 L.Sets = int.Parse(SetsBox.Text);
                 L.Weight = int.Parse(WeightBox.Text);
@@ -96,7 +97,7 @@ namespace CviceniDb
                 }
             }
 
-            AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining,DO,U);
+            AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining,DT,U);
             AT.Show();
             this.Close();
 

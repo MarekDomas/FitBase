@@ -41,7 +41,7 @@ namespace CviceniDb
         }
 
         //Konstruktor používám při otevírání z CreateLift. Dávám argumenty které pak doplním.
-        public AddTrainingWin(string NameOfTraining, DateOnly DatumTreningu,User u)
+        public AddTrainingWin(string NameOfTraining, DateTime DatumTreningu,User u)
         {
             U = u;
             InitializeComponent ();
@@ -50,11 +50,21 @@ namespace CviceniDb
             string XMLSoub =  System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining + "Lifts" + ".xml");
             string XMLSoubContent = File.ReadAllText(XMLSoub);
 
+            //DateOfTrainingPick.Value = DateOfTrainingPick;
+
+            string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            if (XMLSoubContent.StartsWith(_byteOrderMarkUtf8)) 
+            {
+                XMLSoubContent = XMLSoub.Remove(0, _byteOrderMarkUtf8.Length);
+            }
+
             if(XMLSoubContent != "")
             {
+
                 XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
-                StringReader stringReader = new StringReader(XMLSoub);
-                List<Lift> result = (List<Lift>)serializer2.Deserialize(stringReader);
+                StreamReader streamReader = new StreamReader(XMLSoub);
+                
+                List<Lift> result = (List<Lift>)serializer2.Deserialize(streamReader);
 
                 Seznam.ItemsSource = result;
             }
@@ -70,8 +80,8 @@ namespace CviceniDb
             string FileName = "";
 
             Training NewTraining = new Training();
-            DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value;
-            DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);
+            //string DateTime = DateOfTrainingPick.SelectedDate.Value.Date.ToShortDateString();
+            DateTime CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
             NewTraining.DateOfTraining = CurrentTrainingDate;
 
             //Pokud není vyplněný název tak se vytvoří sám
@@ -139,7 +149,7 @@ namespace CviceniDb
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
             CurrentTrainingName = NameOfTrainingBox.Text;
-            DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value;
+            DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value.Date;
             DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);
 
             string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
@@ -151,7 +161,7 @@ namespace CviceniDb
                     fs.Write(content, 0, content.Length);
                 }
             }
-            CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,CurrentTrainingDate,U);
+            CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,CurrentTrainingDateTime,U);
             CL.Show();
             this.Close();
         }

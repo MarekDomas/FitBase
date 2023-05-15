@@ -10,13 +10,13 @@ namespace CviceniDb
     [Serializable]
     public class Training : INotifyPropertyChanged
     {
-        public DateOnly DateOfTraining { get; set; }
+        public DateTime DateOfTraining { get; set; }
         public string NameOfTraining{ get; set; }
 
         public string OwnerOfTraining { get;set; }
 
 
-        public Training(DateOnly aDateOfTraining, string aNameOfTraining) 
+        public Training(DateTime aDateOfTraining, string aNameOfTraining) 
         {
             aDateOfTraining = DateOfTraining;
             aNameOfTraining = NameOfTraining;

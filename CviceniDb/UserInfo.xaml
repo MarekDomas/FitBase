@@ -21,7 +21,7 @@
                 <DataTemplate>
                     <WrapPanel>
                         <TextBlock Text="{Binding NameOfTraining}" FontWeight="Bold" Margin="5,0"/>
-                        <TextBlock Text="{Binding DateOfTraining}" FontWeight="Bold" Margin="5,0"/>
+                        <TextBlock Text="{Binding DateOfTraining,StringFormat=dd/MM/yyyy}" FontWeight="Bold" Margin="5,0"/>
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
