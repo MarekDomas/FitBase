@@ -27,10 +27,12 @@ namespace CviceniDb
         private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
         private static string[] Cviky = CvikyStr.Split("|||");
         private static List<string> Cviky2 = CvikyStr.Split("|||").ToList();
+        
         private static User U= new User();
         public CreateExercise(User u)
         {
             U = u;
+            Cviky2 = Cviky.Take(Cviky.Length - 1).ToList();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
             InitializeComponent();
         }
@@ -55,10 +57,11 @@ namespace CviceniDb
             {
                 string NewExercise = ExcersiseNameBox.Text;
                 Cviky.Append(NewExercise);
+                Cviky2.Add(NewExercise);
 
                 File.WriteAllText(TrainingNamesFile, "");
 
-                foreach(string Cvik in Cviky)
+                foreach(string Cvik in Cviky2)
                 {
 
                     File.AppendAllText(TrainingNamesFile,Cvik + "|||");
