@@ -135,6 +135,7 @@ namespace CviceniDb
             UserNameBox.Content = "Vítáme vás "+U.Name;
         }
 
+        //Konstruktor který se použije při otevření po přidání tréningu 
         public UserInfo(User u, string NameOfFile)
         {
             Training T = new Training();
@@ -206,17 +207,7 @@ namespace CviceniDb
 
                 File.WriteAllText(UsersTrainingFile, newXml);
 
-                /*
-                XmlSerializer trap = new XmlSerializer(typeof(List<string>));
-                using (StreamWriter sw = new StreamWriter("KOKOS.xml"))
-                {
-                    trap.Serialize(sw, result);
-                }*/
-                /*
-                using (TextWriter writer = new StreamWriter(UsersTrainingFile,true,Encoding.UTF8))
-                {
-                    writer.WriteLine(Environment.NewLine + "<string>" + T.NameOfTraining + "</string>");
-                }*/
+                
             }
 
 
