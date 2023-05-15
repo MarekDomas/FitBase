@@ -11,7 +11,8 @@
 
         <!--<ListView  x:Name="WorkoutsList" Height="324" VerticalAlignment="Center" HorizontalAlignment="Center" Width="274" />-->
 
-        <Button x:Name="AddTraining" Click="AddTraining_Click" Height="25" Content="Add workout" Margin="554,359,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78"/>
+        <Button x:Name="AddTraining" Click="AddTraining_Click" Height="25" Content="Přidat tréning" Margin="554,359,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="78"/>
+        <Button x:Name="CreateExcersiseButt" Content="Vytvořit cvik" Height="25" Click="CreateExcersiseButt_Click" Margin="0,310,159,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="87"/>
 
         <ListView 
         x:Name="Seznam"

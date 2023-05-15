@@ -1,0 +1,14 @@
+﻿<Window x:Class="CviceniDb.CreateExercise"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CviceniDb"
+        mc:Ignorable="d"
+        Title="CreateExercise" Height="450" Width="800">
+    <Grid>
+        <Label Content="Zadejte jméno cviku" FontWeight="Bold" FontSize="15" Margin="324,62,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="152" />
+        <TextBox x:Name="ExcersiseNameBox" Width="150" Height="25" Margin="325,141,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button x:Name="HotovoButt" Click="HotovoButt_Click" Content="Přidat" Margin="369,244,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="62"/>
+    </Grid>
+</Window>

@@ -16,6 +16,7 @@
         <TextBox x:Name="WeightBox" Width="76" Height="25" Margin="240,94,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <ComboBox x:Name="LiftsBox" HorizontalAlignment="Left" Margin="39,94,0,0" VerticalAlignment="Top" Height="25" Width="152"/>
         <Button x:Name="PřidatButt" Content="Přidat" Width="45" Height="25" Click="PřidatButt_Click" Margin="355,303,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        
 
     </Grid>
 </Window>

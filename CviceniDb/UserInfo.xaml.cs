@@ -223,5 +223,12 @@ namespace CviceniDb
             AT.Show();
             this.Close();
         }
+
+        private void CreateExcersiseButt_Click(object sender, RoutedEventArgs e)
+        {
+            CreateExercise CE = new CreateExercise(U);
+            CE.Show();
+            this.Close();
+        }
     }
 }
