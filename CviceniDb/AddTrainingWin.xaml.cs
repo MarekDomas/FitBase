@@ -28,13 +28,40 @@ namespace CviceniDb
         private static User U = new User(isTestUser);
         private static string CurrentTrainingName = "";
         private static Training T = new Training();
+        private static string ExistingTrainingsFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExistingTrainings.txt");
+        private static string ExistingTrainingsFileContent = "";
+        private static string[] ExistingTrainings = { };
 
 
         //Konstruktor který používám při otevření z UserInfo.xaml.cs
         public AddTrainingWin(User u)
         {
+            ExistingTrainingsFileContent = File.ReadAllText(ExistingTrainingsFile);
             U = u;
+            if (ExistingTrainingsFileContent != "")
+            {
+                ExistingTrainings = ExistingTrainingsFileContent.Split("|||");
+                ExistingTrainings = ExistingTrainings.Take(ExistingTrainings.Length - 1).ToArray();
 
+                string WordToremove = U.Name + ":::";
+                //foreach(string s in ExistingTrainings)
+                //{
+                //    s = s.Replace(WordToremove, "");
+                //}
+
+                for(int i = 0; i < ExistingTrainings.Length; i++)
+                {
+                    if (ExistingTrainings[i].Contains(WordToremove))
+                    {
+
+                        ExistingTrainings[i] = ExistingTrainings[i].Replace(WordToremove, "");
+                    }
+                    else
+                    {
+                        ExistingTrainings[i] = ExistingTrainings[i];
+                    }
+                }
+            }
            
 
             InitializeComponent();
@@ -44,13 +71,41 @@ namespace CviceniDb
         public AddTrainingWin(string NameOfTraining, DateTime DatumTreningu,User u)
         {
             U = u;
+            ExistingTrainingsFileContent = File.ReadAllText(ExistingTrainingsFile);
+            if (ExistingTrainingsFileContent != "")
+            {
+                ExistingTrainings = ExistingTrainingsFileContent.Split("|||");
+                ExistingTrainings = ExistingTrainings.Take(ExistingTrainings.Length - 1).ToArray();
+
+                string WordToremove = U.Name + ":::";
+                //foreach(string s in ExistingTrainings)
+                //{
+                //    s = s.Replace(WordToremove, "");
+                //}
+
+                for (int i = 0; i < ExistingTrainings.Length; i++)
+                {
+                    if (ExistingTrainings[i].Contains(WordToremove))
+                    {
+
+                       ExistingTrainings[i] = ExistingTrainings[i].Replace(WordToremove, "");
+                    }
+                    else
+                    {
+                        ExistingTrainings[i] = ExistingTrainings[i];
+                    }
+                }
+            }
             InitializeComponent ();
+
+
+
+            DateOfTrainingPick.SelectedDate = DatumTreningu;
             NameOfTrainingBox.Text = NameOfTraining;
 
             string XMLSoub =  System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining + "Lifts" + ".xml");
             string XMLSoubContent = File.ReadAllText(XMLSoub);
 
-            //DateOfTrainingPick.Value = DateOfTrainingPick;
 
             string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
             if (XMLSoubContent.StartsWith(_byteOrderMarkUtf8)) 
@@ -81,10 +136,52 @@ namespace CviceniDb
 
             Training NewTraining = new Training();
             //string DateTime = DateOfTrainingPick.SelectedDate.Value.Date.ToShortDateString();
-            DateTime CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
+
+            DateTime CurrentTrainingDate = new DateTime();
+            try
+            {
+
+                CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
+            }
+            catch
+            {
+                MessageBox.Show("Zadejte datum!");
+            }
             NewTraining.DateOfTraining = CurrentTrainingDate;
 
+            if (ExistingTrainingsFileContent != "")
+            {
+                ExistingTrainings = ExistingTrainingsFileContent.Split("|||");
+                ExistingTrainings = ExistingTrainings.Take(ExistingTrainings.Length - 1).ToArray();
+
+                string WordToremove = U.Name + ":::";
+                //foreach(string s in ExistingTrainings)
+                //{
+                //    s = s.Replace(WordToremove, "");
+                //}
+
+                for (int i = 0; i < ExistingTrainings.Length; i++)
+                {
+                    if (ExistingTrainings[i].Contains(WordToremove))
+                    {
+
+                        ExistingTrainings[i] = ExistingTrainings[i].Replace(WordToremove, "");
+                    }
+                    else
+                    {
+                        ExistingTrainings[i] = ExistingTrainings[i];
+                    }
+                }
+            }
+
+
+
+
+
+            File.AppendAllText(ExistingTrainingsFile,  U.Name+":::"+NameOfTrainingBox.Text + "|||");
+
             //Pokud není vyplněný název tak se vytvoří sám
+            /*
             if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
             {
                 using (FileStream fs = File.Create("Workout#" + NumberOfTrainings.Length.ToString() + ".xml"))
@@ -96,21 +193,21 @@ namespace CviceniDb
                 FileName = "Workout#" + NumberOfTrainings.Length.ToString() + ".xml";
 
                // File.AppendAllText(TrainingNamesFile, "1");
-            }
-            else
+            }*/
+            
+            
+            using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
             {
-                using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
+                byte[] content = Encoding.UTF8.GetBytes("");
+                fs.Write(content, 0, content.Length);
+            }
 
-                FileName = NameOfTrainingBox.Text + ".xml";
+            FileName = NameOfTrainingBox.Text + ".xml";
 
-                NewTraining.NameOfTraining = NameOfTrainingBox.Text;
+            NewTraining.NameOfTraining = NameOfTrainingBox.Text;
                 
 
-            }
+            
 
             NewTraining.OwnerOfTraining = U.Name;
 
@@ -121,7 +218,7 @@ namespace CviceniDb
                 serializer.Serialize(writer, NewTraining);
             }
 
-            //Pokračovat tady!!!
+            
             string TrainingLiftsFile = NewTraining.NameOfTraining + "Lifts" + ".xml";
             if (!File.Exists(TrainingLiftsFile ))
             {
@@ -137,9 +234,25 @@ namespace CviceniDb
 
             File.AppendAllText(TrainingNamesFile, "1");
 
-            UserInfo USI = new UserInfo(U, FileName);
-            USI.Show();
-            this.Close();
+
+
+            if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
+            {
+                MessageBox.Show("Zadejte název tréningu");
+                NameOfTrainingBox.Text = "";
+            }
+            else if (ExistingTrainings.Contains(NameOfTrainingBox.Text))
+            {
+                MessageBox.Show("Název tréningu je už zabraný");
+                NameOfTrainingBox.Text = "";
+            }
+            else
+            {
+                UserInfo USI = new UserInfo(U, FileName);
+                USI.Show();
+                this.Close();
+            }
+
 
         }
 

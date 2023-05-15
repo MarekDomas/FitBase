@@ -1,22 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using EncryptionDecryptionUsingSymmetricKey;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace CviceniDb
 {
@@ -27,7 +16,7 @@ namespace CviceniDb
     {
         static string key = "b14ca5898a4e4133bbce2ea2315a1916";
 
-
+        private static string ExistingTrainings = "ExistingTrainings.txt";
         private static string UserNamesFile = "Users.txt";
         private static string ListOfTrainingsFile = "Trainings.xml";
         private static string TrainingNamesFile = "Trainings.txt";
@@ -86,6 +75,14 @@ namespace CviceniDb
             if(!File.Exists(UserNamesFile)) 
             {
                 using (FileStream fs = File.Create(UserNamesFile)) 
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+            if (!File.Exists(ExistingTrainings))
+            {
+                using (FileStream fs = File.Create(ExistingTrainings))
                 {
                     byte[] content = Encoding.UTF8.GetBytes("");
                     fs.Write(content, 0, content.Length);

@@ -23,6 +23,7 @@ namespace CviceniDb
     {
         static bool isTestUser = true;
         private static User U = new User(isTestUser);
+        
 
         /*private static ListView GetSeznam()
         {
