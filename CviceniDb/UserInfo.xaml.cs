@@ -67,11 +67,13 @@ namespace CviceniDb
         //static string UsersTrainingFile = U.Name + ".xml";
 
 
+        //Konstruktor který se používá jenom při prvním načtení
         public UserInfo(User u)
         {
 
             InitializeComponent();
             U = u;
+            //Vytvoří soubor ve kterém se ukládají jména tréningů a dohledávají se
             string UsersTrainingFile = U.Name + ".xml";
             if (!File.Exists(UsersTrainingFile))
             {
@@ -87,16 +89,18 @@ namespace CviceniDb
 
 
             string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
-
+            
+            //Tréningy se načítají do listview
             if(UsersTrainingFileContent != "")
             {
                 string XMLSoub = File.ReadAllText(UsersTrainingFile);
-
+                
+                //Kořenový atribut je ArrayOfString. Deserializovaný obsah se ukládá do listu.
                 XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
                 StringReader stringReader = new StringReader(XMLSoub);
                 List<string> result = (List<string>)serializer2.Deserialize(stringReader);
 
-
+                //Do listu se zadávají jména souborů
                 List<string> SouboryTreningu = new List<string>();
                 foreach (string Sou in result)
                 {
@@ -104,7 +108,8 @@ namespace CviceniDb
                     //string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Sou + ".xml");
 
                 }
-
+                
+                
                 XmlSerializer serializer3 = new XmlSerializer(typeof(Training));
                 List<Training> Treningy = new List<Training>();
 
@@ -112,13 +117,14 @@ namespace CviceniDb
                 {
                     using (StreamReader reader = new StreamReader(file))
                     {
+                        //Tréningy se přečtou ze souboru a přidají do listu
                         Training obj = (Training)serializer3.Deserialize(reader);
                         Treningy.Add(obj);
-                        // Add obj to your ListView here
+                        
                     }
                 }
 
-
+                //Nakonec se přidají do listview
                 Seznam.ItemsSource = Treningy;
             }
            
