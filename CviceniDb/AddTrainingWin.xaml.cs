@@ -29,6 +29,8 @@ namespace CviceniDb
         private static string CurrentTrainingName = "";
         private static Training T = new Training();
 
+
+        //Konstruktor který používám při otevření z UserInfo.xaml.cs
         public AddTrainingWin(User u)
         {
             U = u;
@@ -38,6 +40,7 @@ namespace CviceniDb
             InitializeComponent();
         }
 
+        //Konstruktor používám při otevírání z CreateLift. Dávám argumenty které pak doplním.
         public AddTrainingWin(string NameOfTraining, DateOnly DatumTreningu,User u)
         {
             U = u;
@@ -62,6 +65,8 @@ namespace CviceniDb
         private void Hotovo_Click(object sender, RoutedEventArgs e)
         {
 
+
+            //Vytváří soubor pro tréning
             string FileName = "";
 
             Training NewTraining = new Training();
@@ -69,7 +74,7 @@ namespace CviceniDb
             DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);
             NewTraining.DateOfTraining = CurrentTrainingDate;
 
-
+            //Pokud není vyplněný název tak se vytvoří sám
             if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
             {
                 using (FileStream fs = File.Create("Workout#" + NumberOfTrainings.Length.ToString() + ".xml"))
