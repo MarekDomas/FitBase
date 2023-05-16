@@ -147,7 +147,7 @@ namespace CviceniDb
                     bool IsEdit = true;
                     Training SelectedT = Seznam.SelectedItem as Training;
 
-                    AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit);
+                    AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit,SelectedT.NameOfTraining);
                     AT2.Show();
                     this.Close();
                 }
@@ -248,7 +248,7 @@ namespace CviceniDb
             {
                 bool IsEdit = true;
                 Training SelectedT = Seznam.SelectedItem as Training;
-                AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit);
+                AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit,SelectedT.NameOfTraining);
                 AT2.Show();
                 this.Close();
             };

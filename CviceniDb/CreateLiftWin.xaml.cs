@@ -102,7 +102,7 @@ namespace CviceniDb
 
             if (IsEditWindow)
             {
-                AddTrainingWin AT = new AddTrainingWin(T,IsEditWindow);
+                AddTrainingWin AT = new AddTrainingWin(T,IsEditWindow,NameOfCurrentTraining);
                 AT.Show();
                 this.Close();
             }

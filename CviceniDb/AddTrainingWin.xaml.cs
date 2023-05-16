@@ -295,18 +295,20 @@ namespace CviceniDb
                     fs.Write(content, 0, content.Length);
                 }
             }
+
+
             CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,CurrentTrainingDateTime,U,EdititngWindow,NewTraining);
             CL.Show();
             this.Close();
         }
 
         private static Training EditT = new Training();
-        public AddTrainingWin(Training editT, bool IsOpenedFromEditT)
+        public AddTrainingWin(Training editT, bool IsOpenedFromEditT,string NameOfTraining)
         {
             EdititngWindow = IsOpenedFromEditT;
             EditT = editT;
             InitializeComponent();
-            NameOfTrainingBox.Text = EditT.NameOfTraining;
+            NameOfTrainingBox.Text = NameOfTraining;
             DateOfTrainingPick.SelectedDate = EditT.DateOfTraining;
 
             string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, EditT.NameOfTraining+ "Lifts" + ".xml");
