@@ -41,7 +41,7 @@ namespace CviceniDb
             DT = DatumTreningu;
             NameOfCurrentTraining = NameOfTraining;
             InitializeComponent();
-            Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
+            Cviky = Cviky.Take(Cviky.Length - 1).ToArray(); 
             LiftsBox.ItemsSource = Cviky.Select(option => new ComboBoxItem { Content = option });
             LiftsFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfCurrentTraining + "Lifts" + ".xml");
         }

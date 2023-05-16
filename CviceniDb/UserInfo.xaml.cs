@@ -57,8 +57,12 @@ namespace CviceniDb
                 using (StreamReader reader = new StreamReader(file))
                 {
                     Training obj = (Training)serializer3.Deserialize(reader);
-                    Treningy.Add(obj);
-                    // Add obj to your ListView here
+                    if(obj.OwnerOfTraining == U.Name)
+                    {
+                        Treningy.Add(obj);
+                    }
+                    //Treningy.Add(obj);
+                    
                 }
             }
 
@@ -84,6 +88,7 @@ namespace CviceniDb
                     fs.Write(content, 0, content.Length);
                 }
             }
+            
 
             
 
@@ -120,7 +125,11 @@ namespace CviceniDb
                     {
                         //Tréningy se přečtou ze souboru a přidají do listu
                         Training obj = (Training)serializer3.Deserialize(reader);
-                        Treningy.Add(obj);
+                        if (obj.OwnerOfTraining == U.Name)
+                        {
+                            Treningy.Add(obj);
+                        }
+                        //Treningy.Add(obj);
                         
                     }
                 }
@@ -128,12 +137,27 @@ namespace CviceniDb
                 //Nakonec se přidají do listview
                 Seznam.ItemsSource = Treningy;
             }
-           
+
+            Seznam.MouseDoubleClick += (s, e) =>
+            {
+                if(Seznam.SelectedItem != null)
+                {
+                    Training SelectedT = Seznam.SelectedItem as Training;
+                    AddTrainingWin AT2 = new AddTrainingWin(SelectedT);
+                    AT2.Show();
+                    this.Close();
+                }
+            };
+
+            //LoadTrainings(Seznam, UsersTrainingFile);
+
 
 
             //string CurrentUsersFile = U.Name + ".xml";
 
             UserNameBox.Content = "Vítáme vás "+U.Name;
+
+            
         }
 
         //Konstruktor který se použije při otevření po přidání tréningu 
@@ -215,7 +239,20 @@ namespace CviceniDb
 
             LoadTrainings(Seznam, UsersTrainingFile);
 
+            Seznam.MouseDoubleClick += (s,e) => 
+            {
+                Training SelectedT = Seznam.SelectedItem as Training;
+                AddTrainingWin AT2 = new AddTrainingWin(SelectedT);
+                AT2.Show();
+                this.Close();
+            };
+
             UserNameBox.Content = "Vítáme vás " + U.Name;
+        }
+
+        private void Seznam_MouseDoubleClick1(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void AddTraining_Click(object sender, RoutedEventArgs e)
@@ -230,6 +267,11 @@ namespace CviceniDb
             CreateExercise CE = new CreateExercise(U);
             CE.Show();
             this.Close();
+        }
+
+        private void Seznam_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
 }
