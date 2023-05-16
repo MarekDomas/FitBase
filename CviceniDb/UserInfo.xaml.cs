@@ -39,6 +39,7 @@ namespace CviceniDb
             XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
             StringReader stringReader = new StringReader(XMLSoub);
             List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+            result = result.Distinct().ToList();
 
 
             List<string> SouboryTreningu = new List<string>();
@@ -105,6 +106,7 @@ namespace CviceniDb
                 XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
                 StringReader stringReader = new StringReader(XMLSoub);
                 List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+                result = result.Distinct().ToList();
 
                 //Do listu se zadávají jména souborů
                 List<string> SouboryTreningu = new List<string>();
@@ -142,8 +144,10 @@ namespace CviceniDb
             {
                 if(Seznam.SelectedItem != null)
                 {
+                    bool IsEdit = true;
                     Training SelectedT = Seznam.SelectedItem as Training;
-                    AddTrainingWin AT2 = new AddTrainingWin(SelectedT);
+
+                    AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit);
                     AT2.Show();
                     this.Close();
                 }
@@ -224,6 +228,7 @@ namespace CviceniDb
                 XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
                 StringReader stringReader = new StringReader(XMLSoub);
                 List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+                result = result.Distinct().ToList();
                 result.Add(T.NameOfTraining);
 
                 StringWriter stringWriter = new StringWriter();
@@ -241,8 +246,9 @@ namespace CviceniDb
 
             Seznam.MouseDoubleClick += (s,e) => 
             {
+                bool IsEdit = true;
                 Training SelectedT = Seznam.SelectedItem as Training;
-                AddTrainingWin AT2 = new AddTrainingWin(SelectedT);
+                AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit);
                 AT2.Show();
                 this.Close();
             };

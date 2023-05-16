@@ -33,10 +33,11 @@ namespace CviceniDb
 
         private static User U = new User();
         private static DateTime DT = new DateTime();
+        private static bool IsEditWindow = false;
 
-        public CreateLiftWin(string NameOfTraining, DateTime DatumTreningu,User u)
+        public CreateLiftWin(string NameOfTraining, DateTime DatumTreningu,User u,bool IsOpenedFromEditT,Training t)
         {
-            //T = t;
+            T = t;
             U = u;
             DT = DatumTreningu;
             NameOfCurrentTraining = NameOfTraining;
@@ -44,6 +45,8 @@ namespace CviceniDb
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray(); 
             LiftsBox.ItemsSource = Cviky.Select(option => new ComboBoxItem { Content = option });
             LiftsFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfCurrentTraining + "Lifts" + ".xml");
+
+            IsEditWindow = IsOpenedFromEditT;
         }
 
         private void PřidatButt_Click(object sender, RoutedEventArgs e)
@@ -97,9 +100,18 @@ namespace CviceniDb
                 }
             }
 
-            AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining,DT,U);
-            AT.Show();
-            this.Close();
+            if (IsEditWindow)
+            {
+                AddTrainingWin AT = new AddTrainingWin(T,IsEditWindow);
+                AT.Show();
+                this.Close();
+            }
+            else
+            {
+                AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining,DT,U);
+                AT.Show();
+                this.Close();
+            }
 
 
         }
