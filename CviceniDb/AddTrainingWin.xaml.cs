@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -250,11 +252,11 @@ namespace CviceniDb
                     MessageBox.Show("Zadejte název tréningu");
                     NameOfTrainingBox.Text = "";
                 }
-                else if (ExistingTrainings.Contains(NameOfTrainingBox.Text))
+                /*else if (ExistingTrainings.Contains(NameOfTrainingBox.Text))
                 {
                     MessageBox.Show("Název tréningu je už zabraný");
                     NameOfTrainingBox.Text = "";
-                }
+                }*/
                 else
                 {
                     using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
@@ -330,6 +332,56 @@ namespace CviceniDb
                 List<Lift> result = (List<Lift>)serializer2.Deserialize(streamReader);
 
                 Seznam.ItemsSource = result;
+            }
+
+            NameOfTrainingBox.IsReadOnly = true;
+
+
+        }
+
+        private void DeleteLift_Click(object sender, RoutedEventArgs e)
+        {
+            if(Seznam.SelectedItem != null)
+            {
+                Lift SelLift = Seznam.SelectedItem as Lift;
+                Lift DelLift = new Lift();
+                DelLift.NameOfLift = SelLift.NameOfLift;
+                DelLift.Reps = SelLift.Reps;
+                DelLift.Weight = SelLift.Weight;
+                DelLift.Sets = SelLift.Sets;
+
+                string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTrainingBox.Text+ "Lifts" + ".xml");
+
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
+                StreamReader streamReader = new StreamReader(XMLSoub);
+
+                List<Lift> result = (List<Lift>)serializer2.Deserialize(streamReader);
+
+
+                result.Remove(DelLift);
+
+                streamReader.Close();
+                
+                File.WriteAllText(XMLSoub, "");
+                StringWriter stringWriter = new StringWriter();
+                serializer2.Serialize(stringWriter, result);
+                string newXml = stringWriter.ToString();
+                stringWriter.Close();
+                File.WriteAllText(XMLSoub, newXml);
+
+
+
+                /*using (StreamWriter writer = new StreamWriter(XMLSoub))
+                {
+                    serializer2.Serialize(writer, result);
+                    writer.Flush();
+                    writer.Close();
+                }*/
+
+
+                IEditableCollectionView items = Seznam.Items;
+
+                items.Remove(Seznam.SelectedItem);
             }
 
 

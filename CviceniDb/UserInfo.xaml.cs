@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,6 @@ namespace CviceniDb
         static bool isTestUser = true;
         private static User U = new User(isTestUser);
         
-
-        /*private static ListView GetSeznam()
-        {
-            return Seznam;
-        }*/
-
         #region
         private static void LoadTrainings(ListView seznam, string UsersTrainingFile)
         {
@@ -98,7 +93,7 @@ namespace CviceniDb
             string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
             
             //Tréningy se načítají do listview
-            if(UsersTrainingFileContent != "")
+           if(UsersTrainingFileContent != "")
             {
                 string XMLSoub = File.ReadAllText(UsersTrainingFile);
                 
@@ -130,15 +125,15 @@ namespace CviceniDb
                         if (obj.OwnerOfTraining == U.Name)
                         {
                             Treningy.Add(obj);
-                        }
-                        //Treningy.Add(obj);
-                        
+                        }                        
                     }
                 }
 
                 //Nakonec se přidají do listview
                 Seznam.ItemsSource = Treningy;
             }
+
+            //LoadTrainings(Seznam,UsersTrainingFile);
 
             Seznam.MouseDoubleClick += (s, e) =>
             {
@@ -153,11 +148,6 @@ namespace CviceniDb
                 }
             };
 
-            //LoadTrainings(Seznam, UsersTrainingFile);
-
-
-
-            //string CurrentUsersFile = U.Name + ".xml";
 
             UserNameBox.Content = "Vítáme vás "+U.Name;
 
@@ -181,31 +171,7 @@ namespace CviceniDb
                     fs.Write(content, 0, content.Length);
                 }
             }
-
-
-            /*
-            XmlSerializer serializer = new XmlSerializer(typeof(Training));
-
-
-            
-            using (Stream reader = new FileStream(NameOfFile, FileMode.Open))
-            {
-               T = (Training)serializer.Deserialize(reader);
-
-            }
-
-            List<Training> Trainings = new List<Training>();
-
-            Trainings.Add(T);
-
-            Seznam.ItemsSource = Trainings;*/
-
-            
-
-
-            
-
-
+       
             string UsersFileContent = File.ReadAllText(UsersTrainingFile);
 
             if(UsersFileContent == "") 
@@ -275,9 +241,48 @@ namespace CviceniDb
             this.Close();
         }
 
-        private void Seznam_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void LogOutButt_Click(object sender, RoutedEventArgs e)
         {
-            
+            MainWindow MW = new MainWindow();
+            MW.Show();
+            this.Close();
+        }
+
+        private void DeleteTrainingButt_Click(object sender, RoutedEventArgs e)
+        {
+            if(Seznam.SelectedItem != null) 
+            {
+                Training DelT = Seznam.SelectedItem as Training;
+                string FilePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DelT.NameOfTraining+ ".xml");
+                File.Delete(FilePath);
+
+                string UsersTrainings = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, U.Name + ".xml");
+
+                string XMLSoub = File.ReadAllText(UsersTrainings);
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
+                StringReader stringReader = new StringReader(XMLSoub);
+                List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+                result.Remove(DelT.NameOfTraining);
+
+
+                StringWriter stringWriter = new StringWriter();
+                serializer2.Serialize(stringWriter, result);
+                string newXml = stringWriter.ToString();
+
+                File.WriteAllText(UsersTrainings, newXml);
+
+
+                string LiftsFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DelT.NameOfTraining+ "Lifts" + ".xml");
+                File.Delete(LiftsFile);
+
+                //Seznam.Items.Remove(Seznam.SelectedItem);
+
+                IEditableCollectionView items = Seznam.Items;
+
+                items.Remove(Seznam.SelectedItem);
+
+            }
+
         }
     }
 }
