@@ -317,7 +317,7 @@ namespace CviceniDb
             EditT = editT;
             InitializeComponent();
             NameOfTrainingBox.Text = NameOfTraining;
-            DateOfTrainingPick.SelectedDate = EditT.DateOfTraining;
+            //DateOfTrainingPick.SelectedDate = EditT.DateOfTraining;
 
             string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining+ "Lifts" + ".xml");
             string XMLSoubContent = File.ReadAllText(XMLSoub);
