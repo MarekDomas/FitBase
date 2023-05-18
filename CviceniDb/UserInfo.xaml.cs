@@ -26,6 +26,8 @@ namespace CviceniDb
     {
         static bool isTestUser = true;
         private static User U = new User(isTestUser);
+        private static string TempUserFileName = "TempUserFile.txt";
+        private static string TempUserName = File.ReadAllText(TempUserFileName);
         
         #region
         private static void LoadTrainings(ListView seznam, string UsersTrainingFile)
@@ -55,11 +57,11 @@ namespace CviceniDb
                 using (StreamReader reader = new StreamReader(file))
                 {
                     Training obj = (Training)serializer3.Deserialize(reader);
-                    if(obj.OwnerOfTraining == U.Name)
+                    /*if(obj.OwnerOfTraining == U.Name)
                     {
                         Treningy.Add(obj);
-                    }
-                    //Treningy.Add(obj);
+                    }*/
+                    Treningy.Add(obj);
                     
                 }
             }
@@ -76,6 +78,7 @@ namespace CviceniDb
 
             InitializeComponent();
             U = u;
+            UserNameBox.Content = "Vítáme vás " + U.Name;
             //Vytvoří soubor ve kterém se ukládají jména tréningů a dohledávají se
             string UsersTrainingFile = U.Name + ".xml";
             if (!File.Exists(UsersTrainingFile))
@@ -124,10 +127,12 @@ namespace CviceniDb
                     {
                         //Tréningy se přečtou ze souboru a přidají do listu
                         Training obj = (Training)serializer3.Deserialize(reader);
-                        if (obj.OwnerOfTraining == U.Name)
+                        /*if (obj.OwnerOfTraining == U.Name)
                         {
                             Treningy.Add(obj);
-                        }                        
+                        }*/
+
+                        Treningy.Add(obj);
                     }
                 }
 
@@ -151,7 +156,7 @@ namespace CviceniDb
             };
 
 
-            UserNameBox.Content = "Vítáme vás "+U.Name;
+            
 
             
         }
@@ -164,15 +169,9 @@ namespace CviceniDb
             InitializeComponent();
 
             U = u;
-            string UsersTrainingFile = U.Name + ".xml";
-            if (!File.Exists(UsersTrainingFile))
-            {
-                using (FileStream fs = File.Create(UsersTrainingFile))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
+            U.Name = File.ReadAllText(TempUserFileName);
+            string UsersTrainingFile = File.ReadAllText(TempUserFileName) + ".xml";
+            
        
             string UsersFileContent = File.ReadAllText(UsersTrainingFile);
 

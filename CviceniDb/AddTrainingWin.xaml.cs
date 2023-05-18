@@ -131,7 +131,7 @@ namespace CviceniDb
         private static Training NewTraining = new Training();
         private void Hotovo_Click(object sender, RoutedEventArgs e)
         {
-
+            
 
             //Vytváří soubor pro tréning
             string FileName = "";
@@ -181,7 +181,10 @@ namespace CviceniDb
             if (File.Exists(NameOfTrainingBox.Text + ".xml") && EdititngWindow && DateOfTrainingPick.SelectedDate.Value.Date != null)
             {
                 NewTraining.NameOfTraining = NameOfTrainingBox.Text;
-                NewTraining.OwnerOfTraining = U.Name;
+                if(NewTraining.OwnerOfTraining == null)
+                {
+                    NewTraining.OwnerOfTraining = U.Name;
+                }
                 NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value.Date;
                 FileName = NameOfTrainingBox.Text + ".xml";
                 XmlSerializer serializer = new XmlSerializer(typeof(Training));
@@ -225,7 +228,10 @@ namespace CviceniDb
                 
 
                 NewTraining.NameOfTraining = NameOfTrainingBox.Text;
-                NewTraining.OwnerOfTraining = U.Name;
+                if (NewTraining.OwnerOfTraining == null)
+                {
+                    NewTraining.OwnerOfTraining = U.Name;
+                }
                 NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value.Date;
                 FileName = NameOfTrainingBox.Text + ".xml";
                 XmlSerializer serializer = new XmlSerializer(typeof(Training));
@@ -313,7 +319,7 @@ namespace CviceniDb
             NameOfTrainingBox.Text = NameOfTraining;
             DateOfTrainingPick.SelectedDate = EditT.DateOfTraining;
 
-            string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, EditT.NameOfTraining+ "Lifts" + ".xml");
+            string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining+ "Lifts" + ".xml");
             string XMLSoubContent = File.ReadAllText(XMLSoub);
 
 
@@ -341,6 +347,7 @@ namespace CviceniDb
 
         private void DeleteLift_Click(object sender, RoutedEventArgs e)
         {
+            
             if(Seznam.SelectedItem != null)
             {
                 Lift DelLift = Seznam.SelectedItem as Lift;

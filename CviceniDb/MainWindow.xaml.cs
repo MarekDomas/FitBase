@@ -22,6 +22,7 @@ namespace CviceniDb
         private static string TrainingNamesFile = "Trainings.txt";
         private static string TypesOfLiftsFile = "Lifts.txt";
         private static string IdsFile = "IDs.txt";
+        private static string TempUserFile = "TempUserFile.txt";
         string[] cviky = {
                         "Dřep s činkou",
                         "Mrtvý tah",
@@ -125,6 +126,21 @@ namespace CviceniDb
                 }
             }
 
+            if(!File.Exists(TempUserFile))
+            {
+                using (FileStream fs = File.Create(TempUserFile))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+            else
+            {
+                File.WriteAllText(TempUserFile, "");
+            }
+
+
+
             if (File.ReadAllText(TypesOfLiftsFile) == "")
             {
                 foreach (string cvik in cviky)
@@ -182,9 +198,11 @@ namespace CviceniDb
                 //Úspěšné přihlášení uživatele
                 if (NameBox.Text == user.Name && PasswdBox.Text == user.Passwd)
                 {
+
                     UserInfo userInfo = new UserInfo(user);
                     userInfo.Show();
-                    
+                    File.WriteAllText(TempUserFile, user.Name);
+
                     this.Close();
                     break;
 
