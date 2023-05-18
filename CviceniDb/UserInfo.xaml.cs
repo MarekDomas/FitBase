@@ -247,13 +247,13 @@ namespace CviceniDb
 
         private void LogOutButt_Click(object sender, RoutedEventArgs e)
         {
-            /*MainWindow MW = new MainWindow();
+            MainWindow MW = new MainWindow();
             MW.Show();
-            this.Close();*/
+            this.Close();
             //System.Windows.Forms.Application.Restart();
 
-            Process.Start(Process.GetCurrentProcess().MainModule.FileName);
-            Application.Current.Shutdown();
+            /*Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+            Application.Current.Shutdown();*/
         }
 
         private void DeleteTrainingButt_Click(object sender, RoutedEventArgs e)
