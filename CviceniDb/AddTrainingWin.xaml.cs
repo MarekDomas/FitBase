@@ -343,40 +343,47 @@ namespace CviceniDb
         {
             if(Seznam.SelectedItem != null)
             {
-                Lift SelLift = Seznam.SelectedItem as Lift;
-                Lift DelLift = new Lift();
+                Lift DelLift = Seznam.SelectedItem as Lift;
+                /*Lift DelLift = new Lift();
                 DelLift.NameOfLift = SelLift.NameOfLift;
                 DelLift.Reps = SelLift.Reps;
                 DelLift.Weight = SelLift.Weight;
-                DelLift.Sets = SelLift.Sets;
+                DelLift.Sets = SelLift.Sets;*/
 
                 string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTrainingBox.Text+ "Lifts" + ".xml");
 
-                XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
+                XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>));
                 StreamReader streamReader = new StreamReader(XMLSoub);
 
                 List<Lift> result = (List<Lift>)serializer2.Deserialize(streamReader);
 
 
-                result.Remove(DelLift);
+
+                //result.Remove(DelLift);
+
+                for(int i = 0; i < result.Count; i++)
+                {
+                    if (result[i].NameOfLift == DelLift.NameOfLift)
+                    {
+                        result.Remove((Lift)result[i]);
+                    }
+                }
 
                 streamReader.Close();
-                
-                File.WriteAllText(XMLSoub, "");
+
+                /*File.WriteAllText(XMLSoub, "");
                 StringWriter stringWriter = new StringWriter();
                 serializer2.Serialize(stringWriter, result);
                 string newXml = stringWriter.ToString();
                 stringWriter.Close();
-                File.WriteAllText(XMLSoub, newXml);
+                File.WriteAllText(XMLSoub, newXml);*/
 
 
-
-                /*using (StreamWriter writer = new StreamWriter(XMLSoub))
+                File.WriteAllText(XMLSoub, "");
+                using (StreamWriter writer = new StreamWriter(XMLSoub))
                 {
                     serializer2.Serialize(writer, result);
-                    writer.Flush();
-                    writer.Close();
-                }*/
+                }
 
 
                 IEditableCollectionView items = Seznam.Items;

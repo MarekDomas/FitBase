@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
+//using System.Windows.Form;
 
 namespace CviceniDb
 {
@@ -243,9 +245,13 @@ namespace CviceniDb
 
         private void LogOutButt_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow MW = new MainWindow();
+            /*MainWindow MW = new MainWindow();
             MW.Show();
-            this.Close();
+            this.Close();*/
+            //System.Windows.Forms.Application.Restart();
+
+            Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+            Application.Current.Shutdown();
         }
 
         private void DeleteTrainingButt_Click(object sender, RoutedEventArgs e)
@@ -262,6 +268,7 @@ namespace CviceniDb
                 XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
                 StringReader stringReader = new StringReader(XMLSoub);
                 List<string> result = (List<string>)serializer2.Deserialize(stringReader);
+                result = result.Distinct().ToList();
                 result.Remove(DelT.NameOfTraining);
 
 
