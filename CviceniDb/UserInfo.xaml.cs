@@ -213,11 +213,14 @@ namespace CviceniDb
 
             Seznam.MouseDoubleClick += (s,e) => 
             {
-                bool IsEdit = true;
-                Training SelectedT = Seznam.SelectedItem as Training;
-                AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit,SelectedT.NameOfTraining);
-                AT2.Show();
-                this.Close();
+                if(Seznam.SelectedItem  != null)
+                {
+                    bool IsEdit = true;
+                    Training SelectedT = Seznam.SelectedItem as Training;
+                    AddTrainingWin AT2 = new AddTrainingWin(SelectedT,IsEdit,SelectedT.NameOfTraining);
+                    AT2.Show();
+                    this.Close();
+                }
             };
 
             UserNameBox.Content = "Vítáme vás " + U.Name;
