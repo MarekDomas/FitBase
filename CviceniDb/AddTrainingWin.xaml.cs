@@ -144,127 +144,34 @@ namespace CviceniDb
             {
 
                 CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
-            }
-            catch
-            {
-                MessageBox.Show("Zadejte datum!");
-            }
-            NewTraining.DateOfTraining = CurrentTrainingDate;
+                NewTraining.DateOfTraining = CurrentTrainingDate;
 
-            if (ExistingTrainingsFileContent != "")
-            {
-                ExistingTrainings = ExistingTrainingsFileContent.Split("|||");
-                ExistingTrainings = ExistingTrainings.Take(ExistingTrainings.Length - 1).ToArray();
 
-                string WordToremove = U.Name + ":::";
-                //foreach(string s in ExistingTrainings)
-                //{
-                //    s = s.Replace(WordToremove, "");
-                //}
 
-                for (int i = 0; i < ExistingTrainings.Length; i++)
+
+
+                if (File.Exists(NameOfTrainingBox.Text + ".xml") && EdititngWindow && DateOfTrainingPick.SelectedDate.Value.Date != null)
                 {
-                    if (ExistingTrainings[i].Contains(WordToremove))
+                    NewTraining.NameOfTraining = NameOfTrainingBox.Text;
+                    if (NewTraining.OwnerOfTraining == null)
                     {
-
-                        ExistingTrainings[i] = ExistingTrainings[i].Replace(WordToremove, "");
+                        NewTraining.OwnerOfTraining = U.Name;
                     }
-                    else
+                    NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value.Date;
+                    FileName = NameOfTrainingBox.Text + ".xml";
+                    XmlSerializer serializer = new XmlSerializer(typeof(Training));
+                    string TrainingLiftsFile = NewTraining.NameOfTraining + "Lifts" + ".xml";
+
+                    if (!File.Exists(TrainingLiftsFile))
                     {
-                        ExistingTrainings[i] = ExistingTrainings[i];
+                        using (FileStream fs = File.Create(TrainingLiftsFile))
+                        {
+                            byte[] content = Encoding.UTF8.GetBytes("");
+                            fs.Write(content, 0, content.Length);
+                        }
                     }
-                }
-            }
+                    T.NameOfTraining = NewTraining.NameOfTraining;
 
-            File.AppendAllText(ExistingTrainingsFile,  U.Name+":::"+NameOfTrainingBox.Text + "|||");
-
-            if (File.Exists(NameOfTrainingBox.Text + ".xml") && EdititngWindow && DateOfTrainingPick.SelectedDate.Value.Date != null)
-            {
-                NewTraining.NameOfTraining = NameOfTrainingBox.Text;
-                if(NewTraining.OwnerOfTraining == null)
-                {
-                    NewTraining.OwnerOfTraining = U.Name;
-                }
-                NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value.Date;
-                FileName = NameOfTrainingBox.Text + ".xml";
-                XmlSerializer serializer = new XmlSerializer(typeof(Training));
-                string TrainingLiftsFile = NewTraining.NameOfTraining + "Lifts" + ".xml";
-
-                if (!File.Exists(TrainingLiftsFile))
-                {
-                    using (FileStream fs = File.Create(TrainingLiftsFile))
-                    {
-                        byte[] content = Encoding.UTF8.GetBytes("");
-                        fs.Write(content, 0, content.Length);
-                    }
-                }
-                T.NameOfTraining = NewTraining.NameOfTraining;
-
-                using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-                using (StreamWriter writer = new StreamWriter(FileName))
-                {
-                    serializer.Serialize(writer, NewTraining);
-                }
-                UserInfo USI = new UserInfo(U, FileName);
-                USI.Show();
-
-
-                this.Close();
-
-            }
-            else if (File.Exists(NameOfTrainingBox.Text + ".xml") && !EdititngWindow)
-            {
-                MessageBox.Show("Jméno tohoto tréningu existuje nebo ho má zabraný někdo jiný");
-                NameOfTrainingBox.Text = "";
-
-            }
-            else
-            {
-                
-                
-
-                NewTraining.NameOfTraining = NameOfTrainingBox.Text;
-                if (NewTraining.OwnerOfTraining == null)
-                {
-                    NewTraining.OwnerOfTraining = U.Name;
-                }
-                NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value.Date;
-                FileName = NameOfTrainingBox.Text + ".xml";
-                XmlSerializer serializer = new XmlSerializer(typeof(Training));
-                string TrainingLiftsFile = NewTraining.NameOfTraining + "Lifts" + ".xml";
-            
-                
-                if (!File.Exists(TrainingLiftsFile ))
-                {
-                    using (FileStream fs = File.Create(TrainingLiftsFile))
-                    {
-                        byte[] content = Encoding.UTF8.GetBytes("");
-                        fs.Write(content, 0, content.Length);
-                    }
-                }
-                T.NameOfTraining = NewTraining.NameOfTraining;
-                //T.OwnerOfTraining = NewTraining.OwnerOfTraining;
-
-                File.AppendAllText(TrainingNamesFile, "1");
-
-
-
-                if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
-                {
-                    MessageBox.Show("Zadejte název tréningu");
-                    NameOfTrainingBox.Text = "";
-                }
-                /*else if (ExistingTrainings.Contains(NameOfTrainingBox.Text))
-                {
-                    MessageBox.Show("Název tréningu je už zabraný");
-                    NameOfTrainingBox.Text = "";
-                }*/
-                else
-                {
                     using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
                     {
                         byte[] content = Encoding.UTF8.GetBytes("");
@@ -276,11 +183,82 @@ namespace CviceniDb
                     }
                     UserInfo USI = new UserInfo(U, FileName);
                     USI.Show();
-                    
-                    
+
+
                     this.Close();
+
+                }
+                else if (File.Exists(NameOfTrainingBox.Text + ".xml") && !EdititngWindow)
+                {
+                    MessageBox.Show("Jméno tohoto tréningu existuje nebo ho má zabraný někdo jiný");
+                    NameOfTrainingBox.Text = "";
+
+                }
+                else
+                {
+
+
+
+                    NewTraining.NameOfTraining = NameOfTrainingBox.Text;
+                    if (NewTraining.OwnerOfTraining == null)
+                    {
+                        NewTraining.OwnerOfTraining = U.Name;
+                    }
+                    NewTraining.DateOfTraining = DateOfTrainingPick.SelectedDate.Value.Date;
+                    FileName = NameOfTrainingBox.Text + ".xml";
+                    XmlSerializer serializer = new XmlSerializer(typeof(Training));
+                    string TrainingLiftsFile = NewTraining.NameOfTraining + "Lifts" + ".xml";
+
+
+                    if (!File.Exists(TrainingLiftsFile))
+                    {
+                        using (FileStream fs = File.Create(TrainingLiftsFile))
+                        {
+                            byte[] content = Encoding.UTF8.GetBytes("");
+                            fs.Write(content, 0, content.Length);
+                        }
+                    }
+                    T.NameOfTraining = NewTraining.NameOfTraining;
+                    //T.OwnerOfTraining = NewTraining.OwnerOfTraining;
+
+                    File.AppendAllText(TrainingNamesFile, "1");
+
+
+
+                    if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
+                    {
+                        MessageBox.Show("Zadejte název tréningu");
+                        NameOfTrainingBox.Text = "";
+                    }
+                    /*else if (ExistingTrainings.Contains(NameOfTrainingBox.Text))
+                    {
+                        MessageBox.Show("Název tréningu je už zabraný");
+                        NameOfTrainingBox.Text = "";
+                    }*/
+                    else
+                    {
+                        using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
+                        {
+                            byte[] content = Encoding.UTF8.GetBytes("");
+                            fs.Write(content, 0, content.Length);
+                        }
+                        using (StreamWriter writer = new StreamWriter(FileName))
+                        {
+                            serializer.Serialize(writer, NewTraining);
+                        }
+                        UserInfo USI = new UserInfo(U, FileName);
+                        USI.Show();
+
+
+                        this.Close();
+                    }
                 }
             }
+            catch
+            {
+                MessageBox.Show("Zadejte datum!");
+            }
+            
         }
 
         
@@ -291,8 +269,8 @@ namespace CviceniDb
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
             CurrentTrainingName = NameOfTrainingBox.Text;
-            DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value.Date;
-            DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);
+            /*DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value.Date;
+            DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);*/
 
             string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
             if (!File.Exists(TrainingLiftsFile))
@@ -305,7 +283,7 @@ namespace CviceniDb
             }
 
 
-            CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,CurrentTrainingDateTime,U,EdititngWindow,NewTraining);
+            CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,U,EdititngWindow,NewTraining);
             CL.Show();
             this.Close();
         }
@@ -370,9 +348,10 @@ namespace CviceniDb
 
                 for(int i = 0; i < result.Count; i++)
                 {
-                    if (result[i].NameOfLift == DelLift.NameOfLift)
+                    if (result[i].NameOfLift == DelLift.NameOfLift&& result[i].Reps== DelLift.Reps&& result[i].Sets== DelLift.Sets&& result[i].Weight== DelLift.Weight)
                     {
                         result.Remove((Lift)result[i]);
+                        break;
                     }
                 }
 

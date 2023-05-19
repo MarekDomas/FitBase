@@ -6,14 +6,23 @@
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="400">
+    <Window.Background>
+        <SolidColorBrush Color="#393053"/>
+    </Window.Background>
+
     <Grid>
-        <Label Content="Jméno" FontSize="20" Margin="131,51,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="NameBox" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Heslo" FontSize="20" Margin="131,113,0,0" Height="36" Width="62" VerticalAlignment="Top" HorizontalAlignment="Left" />
-        <TextBox x:Name="PasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Button x:Name="SignIn" Click="SignIn_Click" Content="Přihlásit se" Width="65" Height="25" Margin="204,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Button x:Name="SignUp" Click="SignUp_Click" Content="Vytvořit účet" Width="76" Height="25" Margin="123,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-        <Label x:Name="DebugLabel" FontSize="15" Margin="52,305,0,0" Height="92" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296"/>
+
+
+        <Label Background="MediumPurple" Content="Jméno" FontSize="20" Margin="0,51,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+
+
+        <TextBox BorderBrush="black" x:Name="NameBox" Background="Gray" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Background="MediumPurple" Content="Heslo" FontSize="20" Margin="0,113,0,0" Height="36" Width="68" VerticalAlignment="Top" HorizontalAlignment="Center" />
+        <TextBox BorderBrush="Black" Background="Gray" x:Name="PasswdBox" FontFamily="Webdings" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button BorderBrush="black" Background="Gray" x:Name="SignIn" Click="SignIn_Click" Content="Přihlásit se" Width="65" Height="25" Margin="204,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Button BorderBrush="black" Background="Gray" x:Name="SignUp" Click="SignUp_Click" Content="Vytvořit účet" Width="76" Height="25" Margin="123,235,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label x:Name="DebugLabel" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" Margin="0,285,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Center" Width="138"/>
         <Label x:Name="DebugLabel2" FontSize="15" Width="333" Height="29" Margin="0,188,45,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

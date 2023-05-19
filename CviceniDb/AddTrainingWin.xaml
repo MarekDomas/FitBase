@@ -6,20 +6,25 @@
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
         Title="AddTrainingWin" Height="450" Width="800">
-    <Grid>
-        <Label Content="Zadejte datum tréningu: " FontWeight="DemiBold"  FontSize="15" Margin="61,35,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
-        <DatePicker x:Name="DateOfTrainingPick" SelectedDate="{Binding DateOfTraining ,StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Margin="61,88,0,0" VerticalAlignment="Top"/>
-        <Label Content="Zadejte jméno tréningu: " FontWeight="DemiBold" FontSize="15" Margin="61,133,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
-        <TextBox Height="25" x:Name="NameOfTrainingBox" Margin="61,192,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
-        <Button x:Name="Hotovo" Content="Hotovo" Height="25" Click="Hotovo_Click" Margin="61,340,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-        <Button x:Name="AddLiftsButt" Click="AddLiftsButt_Click" Content="Přidejte cviky" Height="25" Margin="61,251,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113" />
-        <Button x:Name="DeleteLift" Content="Odebrat cvik" Height="25" Click="DeleteLift_Click" Margin="244,340,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="89"/>
 
-        <Label Content="Zobrazí vaše cviky potom co je zadáte" FontSize="15" FontWeight="SemiBold" Margin="361,35,166,367"/>
+    <Window.Background>
+        <SolidColorBrush Color="#393053"/>
+    </Window.Background>
+    <Grid>
+        <Label Background="MediumPurple" Content="Zadejte datum tréningu: " FontWeight="DemiBold"  FontSize="15" Margin="61,35,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
+        <DatePicker BorderBrush="Black" Background="Gray" x:Name="DateOfTrainingPick" SelectedDate="{Binding DateOfTraining ,StringFormat=dd/MM/yyyy}" HorizontalAlignment="Left" Margin="61,88,0,0" VerticalAlignment="Top"/>
+        <Label Background="MediumPurple" Content="Zadejte jméno tréningu: " FontWeight="DemiBold" FontSize="15" Margin="61,158,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
+        <TextBox BorderBrush="Black" Background="Gray" Height="25" x:Name="NameOfTrainingBox" Margin="61,192,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178"/>
+        <Button BorderBrush="Black" Background="Gray" x:Name="Hotovo" Content="Hotovo" Height="25" Click="Hotovo_Click" Margin="61,340,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
+        <Button BorderBrush="Black" Background="Gray" x:Name="AddLiftsButt" Click="AddLiftsButt_Click" Content="Přidejte cviky" Height="25" Margin="61,251,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="113" />
+        <Button BorderBrush="Black" Background="Gray" x:Name="DeleteLift" Content="Odebrat cvik" Height="25" Click="DeleteLift_Click" Margin="244,340,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="89"/>
+
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="MediumPurple" Content="Zobrazí vaše cviky potom co je zadáte" FontSize="15" FontWeight="SemiBold" Margin="361,56,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"/>
 
         <ListView 
         x:Name="Seznam"
         Width="300" 
+           BorderBrush="Black" Background="Gray"
             Margin="361,88,0,0" Height="282" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListView.ItemTemplate>
                 <DataTemplate>

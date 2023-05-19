@@ -35,11 +35,11 @@ namespace CviceniDb
         private static DateTime DT = new DateTime();
         private static bool IsEditWindow = false;
 
-        public CreateLiftWin(string NameOfTraining, DateTime DatumTreningu,User u,bool IsOpenedFromEditT,Training t)
+        public CreateLiftWin(string NameOfTraining, User u,bool IsOpenedFromEditT,Training t)
         {
             T = t;
             U = u;
-            DT = DatumTreningu;
+            
             NameOfCurrentTraining = NameOfTraining;
             InitializeComponent();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray(); 
