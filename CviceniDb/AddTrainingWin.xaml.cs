@@ -37,35 +37,8 @@ namespace CviceniDb
 
         //Konstruktor který používám při otevření z UserInfo.xaml.cs
         public AddTrainingWin(User u)
-        {
-            ExistingTrainingsFileContent = File.ReadAllText(ExistingTrainingsFile);
-            U = u;
-            if (ExistingTrainingsFileContent != "")
-            {
-                ExistingTrainings = ExistingTrainingsFileContent.Split("|||");
-                ExistingTrainings = ExistingTrainings.Take(ExistingTrainings.Length - 1).ToArray();
-
-                string WordToremove = U.Name + ":::";
-                //foreach(string s in ExistingTrainings)
-                //{
-                //    s = s.Replace(WordToremove, "");
-                //}
-
-                for(int i = 0; i < ExistingTrainings.Length; i++)
-                {
-                    if (ExistingTrainings[i].Contains(WordToremove))
-                    {
-
-                        ExistingTrainings[i] = ExistingTrainings[i].Replace(WordToremove, "");
-                    }
-                    else
-                    {
-                        ExistingTrainings[i] = ExistingTrainings[i];
-                    }
-                }
-            }
-           
-
+        {            
+            U = u;          
             InitializeComponent();
         }
 
@@ -73,36 +46,9 @@ namespace CviceniDb
         public AddTrainingWin(string NameOfTraining, DateTime DatumTreningu,User u)
         {
             U = u;
-            ExistingTrainingsFileContent = File.ReadAllText(ExistingTrainingsFile);
-            if (ExistingTrainingsFileContent != "")
-            {
-                ExistingTrainings = ExistingTrainingsFileContent.Split("|||");
-                ExistingTrainings = ExistingTrainings.Take(ExistingTrainings.Length - 1).ToArray();
-
-                string WordToremove = U.Name + ":::";
-                //foreach(string s in ExistingTrainings)
-                //{
-                //    s = s.Replace(WordToremove, "");
-                //}
-
-                for (int i = 0; i < ExistingTrainings.Length; i++)
-                {
-                    if (ExistingTrainings[i].Contains(WordToremove))
-                    {
-
-                       ExistingTrainings[i] = ExistingTrainings[i].Replace(WordToremove, "");
-                    }
-                    else
-                    {
-                        ExistingTrainings[i] = ExistingTrainings[i];
-                    }
-                }
-            }
+           
             InitializeComponent ();
 
-
-
-            DateOfTrainingPick.SelectedDate = DatumTreningu;
             NameOfTrainingBox.Text = NameOfTraining;
 
             string XMLSoub =  System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining + "Lifts" + ".xml");
@@ -125,30 +71,17 @@ namespace CviceniDb
 
                 Seznam.ItemsSource = result;
             }
-
-            //DateOfTrainingPick.SetValue(DatePicker.SelectedDateProperty,DatumTreningu);
         }
         private static Training NewTraining = new Training();
         private void Hotovo_Click(object sender, RoutedEventArgs e)
         {
-            
-
             //Vytváří soubor pro tréning
             string FileName = "";
-
-            
-            //string DateTime = DateOfTrainingPick.SelectedDate.Value.Date.ToShortDateString();
-
             DateTime CurrentTrainingDate = new DateTime();
             try
             {
-
                 CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
                 NewTraining.DateOfTraining = CurrentTrainingDate;
-
-
-
-
 
                 if (File.Exists(NameOfTrainingBox.Text + ".xml") && EdititngWindow && DateOfTrainingPick.SelectedDate.Value.Date != null)
                 {
@@ -192,13 +125,9 @@ namespace CviceniDb
                 {
                     MessageBox.Show("Jméno tohoto tréningu existuje nebo ho má zabraný někdo jiný");
                     NameOfTrainingBox.Text = "";
-
                 }
                 else
                 {
-
-
-
                     NewTraining.NameOfTraining = NameOfTrainingBox.Text;
                     if (NewTraining.OwnerOfTraining == null)
                     {
@@ -219,7 +148,7 @@ namespace CviceniDb
                         }
                     }
                     T.NameOfTraining = NewTraining.NameOfTraining;
-                    //T.OwnerOfTraining = NewTraining.OwnerOfTraining;
+
 
                     File.AppendAllText(TrainingNamesFile, "1");
 
@@ -230,11 +159,7 @@ namespace CviceniDb
                         MessageBox.Show("Zadejte název tréningu");
                         NameOfTrainingBox.Text = "";
                     }
-                    /*else if (ExistingTrainings.Contains(NameOfTrainingBox.Text))
-                    {
-                        MessageBox.Show("Název tréningu je už zabraný");
-                        NameOfTrainingBox.Text = "";
-                    }*/
+
                     else
                     {
                         using (FileStream fs = File.Create(NameOfTrainingBox.Text + ".xml"))
@@ -258,7 +183,6 @@ namespace CviceniDb
             {
                 MessageBox.Show("Zadejte datum!");
             }
-            
         }
 
         
@@ -269,8 +193,7 @@ namespace CviceniDb
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
             CurrentTrainingName = NameOfTrainingBox.Text;
-            /*DateTime CurrentTrainingDateTime = DateOfTrainingPick.SelectedDate.Value.Date;
-            DateOnly CurrentTrainingDate = DateOnly.FromDateTime(CurrentTrainingDateTime);*/
+
 
             string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
             if (!File.Exists(TrainingLiftsFile))
@@ -295,17 +218,10 @@ namespace CviceniDb
             EditT = editT;
             InitializeComponent();
             NameOfTrainingBox.Text = NameOfTraining;
-            //DateOfTrainingPick.SelectedDate = EditT.DateOfTraining;
+
 
             string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTraining+ "Lifts" + ".xml");
             string XMLSoubContent = File.ReadAllText(XMLSoub);
-
-
-            /*string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
-            if (XMLSoubContent.StartsWith(_byteOrderMarkUtf8))
-            {
-                XMLSoubContent = XMLSoub.Remove(0, _byteOrderMarkUtf8.Length);
-            }*/
 
             if (XMLSoubContent != String.Empty)
             {
@@ -319,8 +235,6 @@ namespace CviceniDb
             }
 
             NameOfTrainingBox.IsReadOnly = true;
-
-
         }
 
         private void DeleteLift_Click(object sender, RoutedEventArgs e)
@@ -329,11 +243,6 @@ namespace CviceniDb
             if(Seznam.SelectedItem != null)
             {
                 Lift DelLift = Seznam.SelectedItem as Lift;
-                /*Lift DelLift = new Lift();
-                DelLift.NameOfLift = SelLift.NameOfLift;
-                DelLift.Reps = SelLift.Reps;
-                DelLift.Weight = SelLift.Weight;
-                DelLift.Sets = SelLift.Sets;*/
 
                 string XMLSoub = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfTrainingBox.Text+ "Lifts" + ".xml");
 
@@ -342,9 +251,6 @@ namespace CviceniDb
 
                 List<Lift> result = (List<Lift>)serializer2.Deserialize(streamReader);
 
-
-
-                //result.Remove(DelLift);
 
                 for(int i = 0; i < result.Count; i++)
                 {
@@ -357,14 +263,6 @@ namespace CviceniDb
 
                 streamReader.Close();
 
-                /*File.WriteAllText(XMLSoub, "");
-                StringWriter stringWriter = new StringWriter();
-                serializer2.Serialize(stringWriter, result);
-                string newXml = stringWriter.ToString();
-                stringWriter.Close();
-                File.WriteAllText(XMLSoub, newXml);*/
-
-
                 File.WriteAllText(XMLSoub, "");
                 using (StreamWriter writer = new StreamWriter(XMLSoub))
                 {
@@ -376,8 +274,6 @@ namespace CviceniDb
 
                 items.Remove(Seznam.SelectedItem);
             }
-
-
         }
     }
 }

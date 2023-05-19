@@ -28,11 +28,13 @@ namespace CviceniDb
         private static User U = new User(isTestUser);
         private static string TempUserFileName = "TempUserFile.txt";
         private static string TempUserName = File.ReadAllText(TempUserFileName);
-        
+
         #region
+
+        //Funkce se používá jen v jednom konstruktoru protože když ji použiju v tom druhém nevím proč nefunguje
         private static void LoadTrainings(ListView seznam, string UsersTrainingFile)
         {
-            //string UsersTrainingFile = uzivatel.Name + ".xml";
+            
             string XMLSoub = File.ReadAllText(UsersTrainingFile);
 
             XmlSerializer serializer2 = new XmlSerializer(typeof(List<string>), new XmlRootAttribute("ArrayOfString"));
@@ -95,7 +97,7 @@ namespace CviceniDb
 
 
 
-            string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
+           string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
             
             //Tréningy se načítají do listview
            if(UsersTrainingFileContent != "")
@@ -127,11 +129,6 @@ namespace CviceniDb
                     {
                         //Tréningy se přečtou ze souboru a přidají do listu
                         Training obj = (Training)serializer3.Deserialize(reader);
-                        /*if (obj.OwnerOfTraining == U.Name)
-                        {
-                            Treningy.Add(obj);
-                        }*/
-
                         Treningy.Add(obj);
                     }
                 }
@@ -140,10 +137,11 @@ namespace CviceniDb
                 Seznam.ItemsSource = Treningy;
             }
 
-            //LoadTrainings(Seznam,UsersTrainingFile);
-
+            
+            //Při dvojkliku se otevře okno na editování
             Seznam.MouseDoubleClick += (s, e) =>
             {
+                //Kontroluje se jestli vybraný item není null protože při missclicku by to spadlo
                 if(Seznam.SelectedItem != null)
                 {
                     bool IsEdit = true;
@@ -175,6 +173,7 @@ namespace CviceniDb
        
             string UsersFileContent = File.ReadAllText(UsersTrainingFile);
 
+            //Přidá jméno prvního vytvořeného tréningu pokud 
             if(UsersFileContent == "") 
             {
                 List<string> L= new List<string>();
@@ -186,8 +185,7 @@ namespace CviceniDb
                     UsersTrainings.Serialize(writer, L);
                 }
             }
-
-            
+            //Přidává tréning pokud tam už jsou jiné tréningy
             else
             {
                 string XMLSoub = File.ReadAllText(UsersTrainingFile);
@@ -203,14 +201,14 @@ namespace CviceniDb
                 string newXml = stringWriter.ToString();
 
                 File.WriteAllText(UsersTrainingFile, newXml);
-
-                
+                                
             }
 
 
-
+            //Načte tréningy do ListView
             LoadTrainings(Seznam, UsersTrainingFile);
 
+            //Dvojklik na editaci tréningů
             Seznam.MouseDoubleClick += (s,e) => 
             {
                 if(Seznam.SelectedItem  != null)
@@ -226,11 +224,8 @@ namespace CviceniDb
             UserNameBox.Content = "Vítáme vás " + U.Name;
         }
 
-        private void Seznam_MouseDoubleClick1(object sender, MouseButtonEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
+        
+        //Otevře okno na přidání tréningu
         private void AddTraining_Click(object sender, RoutedEventArgs e)
         {
             AddTrainingWin AT = new AddTrainingWin(U);
@@ -238,6 +233,7 @@ namespace CviceniDb
             this.Close();
         }
 
+        //Otevře okno na vytvoření neexistujícího cviku
         private void CreateExcersiseButt_Click(object sender, RoutedEventArgs e)
         {
             CreateExercise CE = new CreateExercise(U);
@@ -245,21 +241,20 @@ namespace CviceniDb
             this.Close();
         }
 
+        //Tlačítko na odhlášení
         private void LogOutButt_Click(object sender, RoutedEventArgs e)
         {
             MainWindow MW = new MainWindow();
             MW.Show();
             this.Close();
-            //System.Windows.Forms.Application.Restart();
-
-            /*Process.Start(Process.GetCurrentProcess().MainModule.FileName);
-            Application.Current.Shutdown();*/
         }
 
+        //Maže tréningy
         private void DeleteTrainingButt_Click(object sender, RoutedEventArgs e)
         {
             if(Seznam.SelectedItem != null) 
             {
+                //Vytvoří vybraný objekt a vymaže soubor tréningu, vymaže soubor se cviky tréningu a vymaže odkaz na tréning a vymaže ho z ListView
                 Training DelT = Seznam.SelectedItem as Training;
                 string FilePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DelT.NameOfTraining+ ".xml");
                 File.Delete(FilePath);
