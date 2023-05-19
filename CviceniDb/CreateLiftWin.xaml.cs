@@ -35,11 +35,11 @@ namespace CviceniDb
         private static DateTime DT = new DateTime();
         private static bool IsEditWindow = false;
 
-        public CreateLiftWin(string NameOfTraining, DateTime DatumTreningu,User u,bool IsOpenedFromEditT,Training t)
+        public CreateLiftWin(string NameOfTraining, User u,bool IsOpenedFromEditT,Training t)
         {
             T = t;
             U = u;
-            DT = DatumTreningu;
+            
             NameOfCurrentTraining = NameOfTraining;
             InitializeComponent();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray(); 
@@ -52,66 +52,79 @@ namespace CviceniDb
         private void PřidatButt_Click(object sender, RoutedEventArgs e)
         {
             Lift L = new Lift();
-            try
+
+
+            if (LiftsBox.SelectedItem == null || String.IsNullOrWhiteSpace(RepsBox.Text) || String.IsNullOrWhiteSpace(SetsBox.Text) || String.IsNullOrWhiteSpace(WeightBox.Text))
             {
-                string LiftsBoxContent = LiftsBox.SelectedItem.ToString();
-                L.NameOfLift = LiftsBoxContent.Substring(LiftsBoxContent.IndexOf(':') + 2); 
-                //L.NameOfLift = LiftsBoxContent;
-                L.Reps = int.Parse(RepsBox.Text);
-                L.Sets = int.Parse(SetsBox.Text);
-                L.Weight = int.Parse(WeightBox.Text);
+                MessageBox.Show("Zadejte všechny informace");
             }
-            catch 
+            else
             {
-                MessageBox.Show("Zadejte správné informace");
-                RepsBox.Text = string.Empty;
-                SetsBox.Text = string.Empty;
-                WeightBox.Text = string.Empty;
+
+                try
+                {
+                    string LiftsBoxContent = LiftsBox.SelectedItem.ToString();
+                    L.NameOfLift = LiftsBoxContent.Substring(LiftsBoxContent.IndexOf(':') + 2); 
+                    //L.NameOfLift = LiftsBoxContent;
+                    L.Reps = int.Parse(RepsBox.Text);
+                    L.Sets = int.Parse(SetsBox.Text);
+                    L.Weight = int.Parse(WeightBox.Text);
+                }
+                catch 
+                {
+                    MessageBox.Show("Zadejte správné informace");
+                    RepsBox.Text = string.Empty;
+                    SetsBox.Text = string.Empty;
+                    WeightBox.Text = string.Empty;
+                }
+
+                string LiftsFileContent = File.ReadAllText(LiftsFile);
+
+
+                if (LiftsFileContent != "")
+                {
+                    string XMLSoub = File.ReadAllText(LiftsFile);
+
+                    XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
+                    StringReader stringReader = new StringReader(XMLSoub);
+                    List<Lift> result = (List<Lift>)serializer2.Deserialize(stringReader);
+                    result.Add(L);
+
+                    StringWriter stringWriter = new StringWriter();
+                    serializer2.Serialize(stringWriter, result);
+                    string newXml = stringWriter.ToString();
+
+                    File.WriteAllText(LiftsFile, newXml);
+                }
+                else
+                {
+                    List<Lift> ListOfL = new List<Lift>();
+                    ListOfL.Add(L);
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Lift>));
+                    using (TextWriter writer = new StreamWriter(LiftsFile))
+                    {
+                        serializer.Serialize(writer, ListOfL);
+                    }
+                }
+
+                if (IsEditWindow)
+                {
+                    AddTrainingWin AT = new AddTrainingWin(T, IsEditWindow, NameOfCurrentTraining);
+                    AT.Show();
+                    this.Close();
+                }
+                else
+                {
+                    AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining, DT, U);
+                    AT.Show();
+                    this.Close();
+                }
             }
 
             
 
-            string LiftsFileContent = File.ReadAllText(LiftsFile);
-
-            if(LiftsFileContent != "")
-            {
-                string XMLSoub = File.ReadAllText(LiftsFile);
-
-                XmlSerializer serializer2 = new XmlSerializer(typeof(List<Lift>), new XmlRootAttribute("ArrayOfLift"));
-                StringReader stringReader = new StringReader(XMLSoub);
-                List<Lift> result = (List<Lift>)serializer2.Deserialize(stringReader);
-                result.Add(L);
-
-                StringWriter stringWriter = new StringWriter();
-                serializer2.Serialize(stringWriter, result);
-                string newXml = stringWriter.ToString();
-
-                File.WriteAllText(LiftsFile, newXml);
-            }
-            else
-            {
-                List<Lift> ListOfL = new List<Lift>();
-                ListOfL.Add(L);
-                
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Lift>));
-                using (TextWriter writer = new StreamWriter(LiftsFile))
-                {
-                    serializer.Serialize(writer, ListOfL);
-                }
-            }
-
-            if (IsEditWindow)
-            {
-                AddTrainingWin AT = new AddTrainingWin(T,IsEditWindow,NameOfCurrentTraining);
-                AT.Show();
-                this.Close();
-            }
-            else
-            {
-                AddTrainingWin AT = new AddTrainingWin(NameOfCurrentTraining,DT,U);
-                AT.Show();
-                this.Close();
-            }
+            
 
 
         }

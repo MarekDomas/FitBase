@@ -44,9 +44,13 @@ namespace CviceniDb
             
             string ContentOfUserNamesFile = File.ReadAllText(UserNamesFile);
             string[] UserNames = ContentOfUserNamesFile.Split(" ");
-            
+
             // Kontrola jestli uživatel už existuje
-            if (UserNames.Contains(NewNameBox.Text))
+            if (String.IsNullOrWhiteSpace(NewNameBox.Text) || String.IsNullOrWhiteSpace(NewPasswdBox.Text)|| String.IsNullOrWhiteSpace(CheckPasswd.Text))
+            {
+                MessageBox.Show("Zadejte informace");
+            }
+            else if (UserNames.Contains(NewNameBox.Text))
             {
                 MessageBox.Show("Tento uživatel už existuje");
             }

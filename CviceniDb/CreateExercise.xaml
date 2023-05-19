@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
-        Title="CreateExercise" Height="450" Width="800">
+        Title="CreateExercise" Height="450" Width="400">
+    <Window.Background>
+        <SolidColorBrush Color="#393053"/>
+    </Window.Background>
+
     <Grid>
-        <Label Content="Zadejte jméno cviku" FontWeight="Bold" FontSize="15" Margin="324,62,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="152" />
-        <TextBox x:Name="ExcersiseNameBox" Width="150" Height="25" Margin="325,141,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Button x:Name="HotovoButt" Click="HotovoButt_Click" Content="Přidat" Margin="369,244,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="62"/>
+        <Label Background="MediumPurple" Content="Zadejte jméno cviku" FontWeight="Bold" FontSize="15" Margin="0,103,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Center" Width="154" />
+        <TextBox BorderBrush="Black" Background="Gray" x:Name="ExcersiseNameBox" Width="150" Height="25" Margin="0,137,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <Button BorderBrush="black" Background="Gray" x:Name="HotovoButt" Click="HotovoButt_Click" Content="Přidat" Margin="0,217,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Center" Width="62"/>
     </Grid>
 </Window>

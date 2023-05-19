@@ -6,16 +6,20 @@
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
         Title="CreateLiftWin" Height="450" Width="800">
+
+    <Window.Background>
+        <SolidColorBrush Color="#393053"/>
+    </Window.Background>
     <Grid>
-        <Label Content="Zadejte název cviku:"  FontSize="15" FontWeight="SemiBold" Margin="39,38,0,0" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left" Width="152"/>
-        <Label Content="Zadejte počet sérií:" FontSize="15" FontWeight="SemiBold" Margin="39,148,0,0" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
-        <TextBox x:Name="SetsBox" Height="25" Margin="39,192,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="76"/>
-        <Label Content="Zadejte počet opakování:" FontSize="15" FontWeight="SemiBold" Margin="39,240,0,0" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
-        <TextBox x:Name="RepsBox" Height="25" Margin="39,290,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="76"/>
-        <Label Content="Zadejte váhu(kg):" FontSize="15" FontWeight="SemiBold" Margin="240,38,0,0" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left" Width="138"/>
-        <TextBox x:Name="WeightBox" Width="76" Height="25" Margin="240,94,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <ComboBox x:Name="LiftsBox" HorizontalAlignment="Left" Margin="39,94,0,0" VerticalAlignment="Top" Height="25" Width="152"/>
-        <Button x:Name="PřidatButt" Content="Přidat" Width="45" Height="25" Click="PřidatButt_Click" Margin="355,303,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Background="MediumPurple" Content="Zadejte název cviku:"  FontSize="15" FontWeight="SemiBold" Margin="39,38,0,0" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left" Width="152"/>
+        <Label Background="MediumPurple" Content="Zadejte počet sérií:" FontSize="15" FontWeight="SemiBold" Margin="39,148,0,0" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
+        <TextBox BorderBrush="black" Background="Gray" x:Name="SetsBox" Height="25" Margin="39,192,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="76"/>
+        <Label Background="MediumPurple" Content="Zadejte počet opakování:" FontSize="15" FontWeight="SemiBold" Margin="39,240,0,0" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Width="184"/>
+        <TextBox BorderBrush="black" Background="Gray" x:Name="RepsBox" Height="25" Margin="39,290,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="76"/>
+        <Label Background="MediumPurple" Content="Zadejte váhu(kg):" FontSize="15" FontWeight="SemiBold" Margin="240,38,0,0" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left" Width="138"/>
+        <TextBox BorderBrush="black" Background="Gray" x:Name="WeightBox" Width="76" Height="25" Margin="240,94,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <ComboBox BorderBrush="black" Background="Gray" x:Name="LiftsBox" HorizontalAlignment="Left" Margin="39,94,0,0" VerticalAlignment="Top" Height="25" Width="152"/>
+        <Button BorderBrush="black" Background="Gray" x:Name="PřidatButt" Content="Přidat" Width="45" Height="25" Click="PřidatButt_Click" Margin="355,303,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         
 
     </Grid>

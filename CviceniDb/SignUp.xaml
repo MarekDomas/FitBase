@@ -6,14 +6,18 @@
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
         Title="SignUp" Height="450" Width="400">
+
+    <Window.Background>
+        <SolidColorBrush Color="#393053"/>
+    </Window.Background>
     <Grid>
-        <Label Content="Jméno:" FontSize="20" Margin="131,51,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBox x:Name="NewNameBox" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Heslo:" FontSize="20" Margin="131,113,0,0" Height="36" Width="69" VerticalAlignment="Top" HorizontalAlignment="Left" />
-        <TextBox x:Name="NewPasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <Label Content="Heslo znovu:" Height="35" FontSize="20" Margin="131,182,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128"/>
-        <TextBox x:Name="CheckPasswd" Height="22" Margin="131,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="138"/>
-        <Button x:Name="FirstSignUp" Click="FirstSignUp_Click" Content="Zaregistrovat se" Width="95" Margin="0,263,0,0" HorizontalAlignment="Center" Height="25" VerticalAlignment="Top" />
-        
+        <Label Background="MediumPurple" Content="Jméno:" FontSize="20" Margin="0,51,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <TextBox BorderBrush="Black" Background="Gray" x:Name="NewNameBox" Margin="131,86,0,0" Width="138" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Background="MediumPurple" Content="Heslo:" FontSize="20" Margin="167,113,0,0" Height="36" Width="69" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <TextBox BorderBrush="Black" Background="Gray" FontFamily="Webdings" x:Name="NewPasswdBox" Width="138" Height="22" Margin="131,149,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Background="MediumPurple" Content="Heslo znovu:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="35" FontSize="20" Margin="138,187,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128"/>
+        <TextBox BorderBrush="Black" Background="Gray" FontFamily="Webdings" x:Name="CheckPasswd" Height="22" Margin="131,222,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="138"/>
+        <Button BorderBrush="Black" Background="Gray" x:Name="FirstSignUp" Click="FirstSignUp_Click" Content="Zaregistrovat se" Width="95" Margin="0,263,0,0" HorizontalAlignment="Center" Height="25" VerticalAlignment="Top" />
+
     </Grid>
 </Window>

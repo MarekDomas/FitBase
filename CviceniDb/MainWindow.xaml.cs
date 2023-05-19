@@ -14,8 +14,11 @@ namespace CviceniDb
     /// </summary>
     public partial class MainWindow : Window 
     {
+
+        //Klíč použitý na rozšifrování dat z uživatelského souboru
         static string key = "b14ca5898a4e4133bbce2ea2315a1916";
 
+        //Soubory které se vytvoří
         private static string ExistingTrainings = "ExistingTrainings.txt";
         private static string UserNamesFile = "Users.txt";
         private static string ListOfTrainingsFile = "Trainings.xml";
@@ -67,65 +70,33 @@ namespace CviceniDb
                     };
 
 
+        //Funkce na vytvoření souborů
+        private static void CreateFile(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                using (FileStream fs = File.Create(filename))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+            }
+        }
+
 
 
         public MainWindow()
         {
-        
-            //Vytvoření souboru se jmény uživatelů pokud není
-            if(!File.Exists(UserNamesFile)) 
-            {
-                using (FileStream fs = File.Create(UserNamesFile)) 
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
-            if (!File.Exists(ExistingTrainings))
-            {
-                using (FileStream fs = File.Create(ExistingTrainings))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
-
-            if (!File.Exists(IdsFile))
-            {
-                using (FileStream fs = File.Create(IdsFile))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
-
-            if (!File.Exists(ListOfTrainingsFile))
-            {
-                using (FileStream fs = File.Create(ListOfTrainingsFile))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
-
-            if (!File.Exists(TrainingNamesFile))
-            {
-                using (FileStream fs = File.Create(TrainingNamesFile))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
-
-            if (!File.Exists(TypesOfLiftsFile))
-            {
-                using(FileStream fs = File.Create(TypesOfLiftsFile))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
-            }
-
+            //Vytváření souborů
+            CreateFile(UserNamesFile);
+            CreateFile(ExistingTrainings);
+            CreateFile(IdsFile);
+            CreateFile(ListOfTrainingsFile);
+            CreateFile(TrainingNamesFile);
+            CreateFile(TypesOfLiftsFile);
+            
+            
+            
             if(!File.Exists(TempUserFile))
             {
                 using (FileStream fs = File.Create(TempUserFile))
@@ -140,7 +111,7 @@ namespace CviceniDb
             }
 
 
-
+            //Do souboru s cviky se nahrají pokud tam nejsou
             if (File.ReadAllText(TypesOfLiftsFile) == "")
             {
                 foreach (string cvik in cviky)
@@ -220,5 +191,7 @@ namespace CviceniDb
             SU.Show();
             this.Close ();
         }
+
+      
     }
 }
