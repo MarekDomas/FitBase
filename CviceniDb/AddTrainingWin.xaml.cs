@@ -83,7 +83,13 @@ namespace CviceniDb
                 CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
                 NewTraining.DateOfTraining = CurrentTrainingDate;
 
-                if (File.Exists(NameOfTrainingBox.Text + ".xml") && EdititngWindow && DateOfTrainingPick.SelectedDate.Value.Date != null)
+                
+                if(File.Exists(NameOfTrainingBox.Text + ".xml") && !EdititngWindow)
+                {
+                    MessageBox.Show("Jméno tohoto tréningu existuje nebo ho má zabraný někdo jiný");
+                    NameOfTrainingBox.Text = "";
+                }
+                else if (File.Exists(NameOfTrainingBox.Text + ".xml") && EdititngWindow && DateOfTrainingPick.SelectedDate.Value.Date != null)
                 {
                     NewTraining.NameOfTraining = NameOfTrainingBox.Text;
                     if (NewTraining.OwnerOfTraining == null)
@@ -262,6 +268,7 @@ namespace CviceniDb
                 }
 
                 streamReader.Close();
+                
 
                 File.WriteAllText(XMLSoub, "");
                 using (StreamWriter writer = new StreamWriter(XMLSoub))
