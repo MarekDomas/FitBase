@@ -268,7 +268,7 @@ namespace CviceniDb
                 }
 
                 streamReader.Close();
-                
+                streamReader.Dispose();
 
                 File.WriteAllText(XMLSoub, "");
                 using (StreamWriter writer = new StreamWriter(XMLSoub))
