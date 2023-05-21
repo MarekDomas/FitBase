@@ -115,7 +115,6 @@ namespace CviceniDb
                 foreach (string Sou in result)
                 {
                     SouboryTreningu.Add(Sou + ".xml");
-                    //string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Sou + ".xml");
 
                 }
                 

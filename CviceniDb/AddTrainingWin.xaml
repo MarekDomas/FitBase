@@ -30,10 +30,10 @@
                 <DataTemplate>
                     <WrapPanel>
                         <TextBlock Text="{Binding NameOfLift}" FontWeight="Bold" Margin="5,0"/>
-                        <TextBlock Text="{Binding Reps}"  Margin="5,0"/>
-                        <TextBlock Text="{Binding Sets}" Margin="5,0"/>
+                        <TextBlock Text="{Binding Reps,StringFormat={}{0} Opakování}"  Margin="5,0"/>
+                        <TextBlock Text="{Binding Sets,StringFormat={}{0} Serií}" Margin="5,0"/>
 
-                        <TextBlock Text="{Binding Weight,StringFormat={}{0} kg}" Margin="5,0"/>
+                        <TextBlock Text="{Binding Weight,StringFormat={}{0} Kg}" Margin="5,0"/>
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
