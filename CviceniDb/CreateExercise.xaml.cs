@@ -12,15 +12,19 @@ namespace CviceniDb
     public partial class CreateExercise : Window
     {
         //Přečte existující cviky a dá je do listu
-        private static string TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
-        private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
-        private static string[] Cviky = CvikyStr.Split("|||");
-        private static List<string> Cviky2 = CvikyStr.Split("|||").ToList();
+        private static string TrainingNamesFile = "";
+        private static string CvikyStr = "";
+        private static string[] Cviky = { };
+        private static List<string> Cviky2 = new List<string>();
         
         private static User U= new User();
         public CreateExercise(User u)
         {
             U = u;
+            TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,U.Name+ "Excercises.txt");
+            CvikyStr = File.ReadAllText(TrainingNamesFile);
+            Cviky = CvikyStr.Split("|||");
+            Cviky2 = CvikyStr.Split("|||").ToList();
             //Délka - 1 se používá protože to vždy vytvoří poslední prázdnou položku
             Cviky2 = Cviky.Take(Cviky.Length - 1).ToList();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray();

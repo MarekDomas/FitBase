@@ -28,6 +28,8 @@ namespace CviceniDb
         private static User U = new User(isTestUser);
         private static string TempUserFileName = "TempUserFile.txt";
         private static string TempUserName = File.ReadAllText(TempUserFileName);
+        private static string UsersTypesOfLiftsFile = "";
+        private static string BasicLifts = File.ReadAllText("Lifts.txt");
 
         #region
 
@@ -80,6 +82,7 @@ namespace CviceniDb
 
             InitializeComponent();
             U = u;
+            UsersTypesOfLiftsFile = U.Name + "Excercises.txt";
             UserNameBox.Content = "Vítáme vás " + U.Name;
             //Vytvoří soubor ve kterém se ukládají jména tréningů a dohledávají se
             string UsersTrainingFile = U.Name + ".xml";
@@ -91,13 +94,23 @@ namespace CviceniDb
                     fs.Write(content, 0, content.Length);
                 }
             }
+
+            if (!File.Exists(UsersTypesOfLiftsFile))
+            {
+                using (FileStream fs = File.Create(UsersTypesOfLiftsFile))
+                {
+                    byte[] content = Encoding.UTF8.GetBytes("");
+                    fs.Write(content, 0, content.Length);
+                }
+                File.WriteAllText(UsersTypesOfLiftsFile, BasicLifts);
+            }
             
 
-            
 
 
 
-           string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
+
+            string UsersTrainingFileContent = File.ReadAllText(UsersTrainingFile);
             
             //Tréningy se načítají do listview
            if(UsersTrainingFileContent != "")

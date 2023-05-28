@@ -21,14 +21,14 @@ namespace CviceniDb
         private static User U = new User();
         public DeleteExcercise(User u)
         {
-            TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
+            U = u;
+            TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, U.Name + "Excercises.txt");
             CvikyStr = File.ReadAllText(TrainingNamesFile);
             Cviky = CvikyStr.Split("|||");
             Cviky2 = CvikyStr.Split("|||").ToList();
-            U = u;
             //Délka - 1 se používá protože to vždy vytvoří poslední prázdnou položku
-            Cviky2 = Cviky.Take(Cviky.Length - 1).ToList();
-            Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
+            /*Cviky2 = Cviky.Take(Cviky.Length - 1).ToList();
+            Cviky = Cviky.Take(Cviky.Length - 1).ToArray();*/
             InitializeComponent();
             //Nahraje cviky do ComboBoxu
             LiftsBox.ItemsSource = Cviky2.Select(option => new ComboBoxItem { Content = option });
