@@ -13,14 +13,18 @@ namespace CviceniDb
     public partial class DeleteExcercise : Window
     {
         //Přečte cviky ze souboru
-        private static string TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
-        private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
-        private static string[] Cviky = CvikyStr.Split("|||");
-        private static List<string> Cviky2 = CvikyStr.Split("|||").ToList();
+        private static string TrainingNamesFile = "";
+        private static string CvikyStr = "";
+        private static string[] Cviky = { };
+        private static List<string> Cviky2 = new List<string>();
 
         private static User U = new User();
         public DeleteExcercise(User u)
         {
+            TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
+            CvikyStr = File.ReadAllText(TrainingNamesFile);
+            Cviky = CvikyStr.Split("|||");
+            Cviky2 = CvikyStr.Split("|||").ToList();
             U = u;
             //Délka - 1 se používá protože to vždy vytvoří poslední prázdnou položku
             Cviky2 = Cviky.Take(Cviky.Length - 1).ToList();
@@ -40,9 +44,14 @@ namespace CviceniDb
             else
             {
 
-                Cviky2.Remove(LiftsBox.SelectedItem.ToString());
+                Cviky2.Remove(((ComboBoxItem)LiftsBox.SelectedItem).Content.ToString());
+
+                File.WriteAllText(TrainingNamesFile, "");
 
                 File.WriteAllText(TrainingNamesFile, string.Join("|||", Cviky2));
+
+
+
 
 
 
