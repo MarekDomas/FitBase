@@ -73,17 +73,23 @@ namespace CviceniDb
             }
         }
         private static Training NewTraining = new Training();
+
+
+        //Celá tato metoda vytvoří soubor tréningu, soubor se cviky a zapíše tréning do seznamu tréningů
         private void Hotovo_Click(object sender, RoutedEventArgs e)
         {
             //Vytváří soubor pro tréning
             string FileName = "";
             DateTime CurrentTrainingDate = new DateTime();
+
+            //Je to v chráněném bloku, protože když nevyberete datum tak to spadne 
             try
             {
                 CurrentTrainingDate = DateOfTrainingPick.SelectedDate.Value.Date;
                 NewTraining.DateOfTraining = CurrentTrainingDate;
 
                 
+                //Kontroluje zdali soubor už existuje 
                 if(File.Exists(NameOfTrainingBox.Text + ".xml") && !EdititngWindow)
                 {
                     MessageBox.Show("Jméno tohoto tréningu existuje nebo ho má zabraný někdo jiný");
@@ -196,6 +202,7 @@ namespace CviceniDb
 
         private static bool EdititngWindow = false;
 
+        //Metoda na přidání cviků do tréningu
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
             CurrentTrainingName = NameOfTrainingBox.Text;
@@ -211,13 +218,15 @@ namespace CviceniDb
                 }
             }
 
-
+            //Do konstruktoru se předávvají informace z okna by se mohli dpolnit po přidání cviku
             CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,U,EdititngWindow,NewTraining);
             CL.Show();
             this.Close();
         }
 
         private static Training EditT = new Training();
+
+        //Konstruktor který se používá pokud se toto okno otevře dvojklikem pro editaci tréningu
         public AddTrainingWin(Training editT, bool IsOpenedFromEditT,string NameOfTraining)
         {
             EdititngWindow = IsOpenedFromEditT;
@@ -243,9 +252,12 @@ namespace CviceniDb
             NameOfTrainingBox.IsReadOnly = true;
         }
 
+
+        //Tlačítko pro smazání cviku z tréningu
         private void DeleteLift_Click(object sender, RoutedEventArgs e)
         {
             
+            //Přečte si to soubor se cviky daného tréningu do listu, cvik odstraní a potom zapíše novy list do souboru
             if(Seznam.SelectedItem != null)
             {
                 Lift DelLift = Seznam.SelectedItem as Lift;

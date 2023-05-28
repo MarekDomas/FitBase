@@ -53,7 +53,7 @@ namespace CviceniDb
         {
             Lift L = new Lift();
 
-
+            //Zjistí zdali byli zadané správné informace. Pak zjistí jestli už existuje soubor se cviky pro daný tréning a zapíše cvik do souboru
             if (LiftsBox.SelectedItem == null || String.IsNullOrWhiteSpace(RepsBox.Text) || String.IsNullOrWhiteSpace(SetsBox.Text) || String.IsNullOrWhiteSpace(WeightBox.Text))
             {
                 MessageBox.Show("Zadejte všechny informace");
@@ -65,7 +65,6 @@ namespace CviceniDb
                 {
                     string LiftsBoxContent = LiftsBox.SelectedItem.ToString();
                     L.NameOfLift = LiftsBoxContent.Substring(LiftsBoxContent.IndexOf(':') + 2); 
-                    //L.NameOfLift = LiftsBoxContent;
                     L.Reps = int.Parse(RepsBox.Text);
                     L.Sets = int.Parse(SetsBox.Text);
                     L.Weight = int.Parse(WeightBox.Text);
@@ -108,6 +107,8 @@ namespace CviceniDb
                     }
                 }
 
+
+                //Zjistí zdali bylo okno otevřeno z editovacího okna a podle toho vybere konstruktor a předá mu správné data
                 if (IsEditWindow)
                 {
                     AddTrainingWin AT = new AddTrainingWin(T, IsEditWindow, NameOfCurrentTraining);

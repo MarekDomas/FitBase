@@ -49,7 +49,7 @@ namespace CviceniDb
 
 
 
-        //Prázdný konstruktor používá
+        //Prázdný konstruktor 
         public User(bool testUser)
         {
 

@@ -22,7 +22,7 @@ namespace CviceniDb
     /// </summary>
     public partial class CreateExercise : Window
     {
-
+        //Přečte existující cviky a dá je do listu
         private static string TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
         private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
         private static string[] Cviky = CvikyStr.Split("|||");
@@ -32,6 +32,7 @@ namespace CviceniDb
         public CreateExercise(User u)
         {
             U = u;
+            //Délka - 1 se používá protože to vždy vytvoří poslední prázdnou položku
             Cviky2 = Cviky.Take(Cviky.Length - 1).ToList();
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray();
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace CviceniDb
 
         private void HotovoButt_Click(object sender, RoutedEventArgs e)
         {
+            //Zjistí zdali byli data zadána správně a zdali cvik existuje a zapíše ho do souboru
             if (String.IsNullOrWhiteSpace(ExcersiseNameBox.Text))
             {
                 MessageBox.Show("Zadejte název cviku!");
