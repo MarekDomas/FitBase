@@ -19,6 +19,7 @@
         <Button BorderBrush="Black" Background="Gray" x:Name="CreateExcersiseButt" Content="Vytvořit cvik" Height="25" Click="CreateExcersiseButt_Click" Margin="554,265,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="87"/>
         <Button BorderBrush="Black" Background="Gray" x:Name="LogOutButt" Content="Odhlásit se" Width="65" Height="25" Click="LogOutButt_Click" Margin="0,42,701,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         <Button BorderBrush="Black" Background="Gray" x:Name="DeleteTrainingButt" Content="Smazat" Height="25" Click="DeleteTrainingButt_Click" Margin="554,359,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="87"/>
+        <Button BorderBrush="Black" Background="Gray" x:Name="DeleteExcerciseButt" Click="DeleteExcerciseButt_Click" Content="Smazat cvik" Width="75" Height="25" Margin="663,265,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
         <ListView 
         x:Name="Seznam"

@@ -1,0 +1,18 @@
+﻿<Window x:Class="CviceniDb.DeleteExcercise"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CviceniDb"
+        mc:Ignorable="d"
+        Title="DeleteExcercise" Height="450" Width="400">
+
+    <Window.Background>
+        <SolidColorBrush Color="#393053"/>
+    </Window.Background>
+    <Grid>
+        <Label Background="MediumPurple" Content="Vyberte cvik" FontWeight="Bold" FontSize="15" Margin="0,103,0,0" Height="34" VerticalAlignment="Top" HorizontalAlignment="Center" Width="98" />
+        <ComboBox BorderBrush="black" Background="Gray" x:Name="LiftsBox" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Height="25" Width="152" />
+        <Button BorderBrush="black" Background="Gray" Height="25" x:Name="DeleteExcerciseButt" Click="DeleteExcerciseButt_Click" Content="Odstranit cvik" Margin="157,217,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="86"/>
+    </Grid>
+</Window>

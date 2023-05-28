@@ -287,5 +287,13 @@ namespace CviceniDb
             }
 
         }
+
+        //Otevře okno pro odstranění typu cviku
+        private void DeleteExcerciseButt_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteExcercise DE = new DeleteExcercise(U);
+            DE.Show();
+            this.Close();
+        }
     }
 }
