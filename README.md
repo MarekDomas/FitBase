@@ -9,5 +9,5 @@ Každý uživatel má vlastní textový soubor se svímy přihlašovacímy údaj
 ![Digram souborů](https://github.com/MarekDomas/CviceniDb/blob/master/Diagram%20soubor%C5%AF.png)
 
 ## Změna dat v souborech: 
-Předvedeno na mazání/přidávání specifických cviků
 ![Měnění dat v souboru](https://github.com/MarekDomas/CviceniDb/blob/master/Zm%C4%9Bna%20dat%20v%20souboru.png)
+Předvedeno na mazání/přidávání specifických cviků
