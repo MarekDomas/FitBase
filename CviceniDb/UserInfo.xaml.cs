@@ -80,8 +80,8 @@ namespace CviceniDb
         public UserInfo(User u)
         {
 
-            InitializeComponent();
             U = u;
+            InitializeComponent();
             UsersTypesOfLiftsFile = U.Name + "Excercises.txt";
             UserNameBox.Content = "Vítáme vás " + U.Name;
             //Vytvoří soubor ve kterém se ukládají jména tréningů a dohledávají se

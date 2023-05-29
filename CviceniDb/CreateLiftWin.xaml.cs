@@ -23,9 +23,9 @@ namespace CviceniDb
     public partial class CreateLiftWin : Window
     {
         //Přidává cviky do drop menu
-        private static string TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Lifts.txt");
-        private static string CvikyStr = File.ReadAllText(TrainingNamesFile);
-        private static string[] Cviky = CvikyStr.Split("|||");
+        private static string TrainingNamesFile = "";
+        private static string CvikyStr = "";
+        private static string[] Cviky = {};
         private static string NameOfCurrentTraining = "";
 
         private static Training T = new Training();
@@ -35,13 +35,17 @@ namespace CviceniDb
         private static DateTime DT = new DateTime();
         private static bool IsEditWindow = false;
 
+        private static string UserName = File.ReadAllText("TempUserFile.txt");
+
         public CreateLiftWin(string NameOfTraining, User u,bool IsOpenedFromEditT,Training t)
         {
-            T = t;
             U = u;
-            
-            NameOfCurrentTraining = NameOfTraining;
+            T = t;
             InitializeComponent();
+            TrainingNamesFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,UserName+ "Excercises.txt");
+            CvikyStr = File.ReadAllText(TrainingNamesFile);
+            Cviky = CvikyStr.Split("|||");
+            NameOfCurrentTraining = NameOfTraining;
             Cviky = Cviky.Take(Cviky.Length - 1).ToArray(); 
             LiftsBox.ItemsSource = Cviky.Select(option => new ComboBoxItem { Content = option });
             LiftsFile = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NameOfCurrentTraining + "Lifts" + ".xml");
