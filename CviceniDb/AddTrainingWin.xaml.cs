@@ -205,23 +205,36 @@ namespace CviceniDb
         //Metoda na přidání cviků do tréningu
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
-            CurrentTrainingName = NameOfTrainingBox.Text;
-
-
-            string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
-            if (!File.Exists(TrainingLiftsFile))
+            if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
             {
-                using (FileStream fs = File.Create(TrainingLiftsFile))
-                {
-                    byte[] content = Encoding.UTF8.GetBytes("");
-                    fs.Write(content, 0, content.Length);
-                }
+                MessageBox.Show("Zadejte jméno tréninku!");
             }
+            if (File.Exists(NameOfTrainingBox.Text + ".xml"))
+            {
+                MessageBox.Show("Trénink existuje!");
+                NameOfTrainingBox.Text = "";
+            }
+            else
+            {
+                CurrentTrainingName = NameOfTrainingBox.Text;
 
-            //Do konstruktoru se předávvají informace z okna by se mohli dpolnit po přidání cviku
-            CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,U,EdititngWindow,NewTraining);
-            CL.Show();
-            this.Close();
+
+                string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
+                if (!File.Exists(TrainingLiftsFile))
+                {
+                    using (FileStream fs = File.Create(TrainingLiftsFile))
+                    {
+                        byte[] content = Encoding.UTF8.GetBytes("");
+                        fs.Write(content, 0, content.Length);
+                    }
+                }
+
+
+                //Do konstruktoru se předávvají informace z okna by se mohli dpolnit po přidání cviku
+                CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName,U,EdititngWindow,NewTraining);
+                CL.Show();
+                this.Close();
+            }
         }
 
         private static Training EditT = new Training();
