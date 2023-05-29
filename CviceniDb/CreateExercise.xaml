@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
-        Title="CreateExercise" Height="450" Width="400">
+        Title="Vytvořit nový cvik" Height="450" Width="400" ResizeMode="NoResize">
     <Window.Background>
         <SolidColorBrush Color="#393053"/>
     </Window.Background>

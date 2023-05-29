@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
-        Title="UserInfo" Height="450" Width="800">
+        Title="Vaše tréninky" Height="450" Width="800" ResizeMode="NoResize">
 
     <Window.Background>
         <SolidColorBrush Color="#393053"/>

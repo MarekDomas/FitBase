@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CviceniDb"
         mc:Ignorable="d"
-        Title="AddTrainingWin" Height="450" Width="800">
+        Title="Uprav tréning" Height="450" Width="800" ResizeMode="NoResize">
 
     <Window.Background>
         <SolidColorBrush Color="#393053"/>
