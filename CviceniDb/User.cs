@@ -13,10 +13,9 @@ namespace CviceniDb
         private string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "IDs.txt");
         public string Name { get; set; }
         public string Passwd { get; set; }
-
         public int id { get; set; }
 
-
+        
         //ToString se využívá při vytvoření a zapisování do souboru
         public override string ToString()
         {

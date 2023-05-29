@@ -127,11 +127,6 @@ namespace CviceniDb
                 }
             }
 
-            
-
-            
-
-
         }
 
         
