@@ -46,7 +46,7 @@ namespace CviceniDb
         public AddTrainingWin(string NameOfTraining, DateTime DatumTreningu,User u)
         {
             U = u;
-           
+            
             InitializeComponent ();
 
             NameOfTrainingBox.Text = NameOfTraining;
@@ -205,18 +205,45 @@ namespace CviceniDb
         //Metoda na přidání cviků do tréningu
         private void AddLiftsButt_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
+            if (!EdititngWindow)
             {
-                MessageBox.Show("Zadejte jméno tréninku!");
-            }
-            if (File.Exists(NameOfTrainingBox.Text + ".xml"))
-            {
-                MessageBox.Show("Trénink existuje!");
-                NameOfTrainingBox.Text = "";
+
+                if (String.IsNullOrWhiteSpace(NameOfTrainingBox.Text))
+                {
+                    MessageBox.Show("Zadejte jméno tréninku!");
+                }
+                else if (File.Exists(NameOfTrainingBox.Text + ".xml"))
+                {
+                    MessageBox.Show("Trénink existuje!");
+                    NameOfTrainingBox.Text = "";
+                }
+                else
+                {
+                    CurrentTrainingName = NameOfTrainingBox.Text;
+
+
+                    string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";
+                    if (!File.Exists(TrainingLiftsFile))
+                    {
+                        using (FileStream fs = File.Create(TrainingLiftsFile))
+                        {
+                            byte[] content = Encoding.UTF8.GetBytes("");
+                            fs.Write(content, 0, content.Length);
+                        }
+                    }
+
+                    EdititngWindow = false;
+
+                    //Do konstruktoru se předávvají informace z okna by se mohli dpolnit po přidání cviku
+                    CreateLiftWin CL = new CreateLiftWin(CurrentTrainingName, U, EdititngWindow, NewTraining);
+                    CL.Show();
+                    this.Close();
+                }
             }
             else
             {
                 CurrentTrainingName = NameOfTrainingBox.Text;
+
 
 
                 string TrainingLiftsFile = CurrentTrainingName + "Lifts" + ".xml";

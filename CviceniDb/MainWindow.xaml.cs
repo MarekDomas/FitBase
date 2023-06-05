@@ -73,6 +73,7 @@ namespace CviceniDb
                 {
                     byte[] content = Encoding.UTF8.GetBytes("");
                     fs.Write(content, 0, content.Length);
+                    
                 }
             }
         }
