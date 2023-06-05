@@ -11,8 +11,18 @@ namespace CviceniDb
     {
         //Atributy
         private string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "IDs.txt");
+
+        /// <summary>
+        /// Jménu uživatele
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Heslo uživatele
+        /// </summary>
         public string Passwd { get; set; }
+        /// <summary>
+        /// ID uživatele (už se nepoužívá)
+        /// </summary>
         public int id { get; set; }
 
         

@@ -10,9 +10,22 @@ namespace CviceniDb
     [Serializable]
     public class Lift : INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// Název cviku
+        /// </summary>
         public string NameOfLift { get; set; }
+        /// <summary>
+        /// Počet opakování cviku
+        /// </summary>
         public int Reps { get; set; }
+        /// <summary>
+        /// Počet sérií
+        /// </summary>
         public int Sets { get; set; }
+        /// <summary>
+        /// Váha udávaná v kg
+        /// </summary>
         public float Weight { get; set; }
 
         
