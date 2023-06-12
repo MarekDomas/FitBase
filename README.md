@@ -1,5 +1,5 @@
 # FitBase
-### Program s uživatelskýmiu účty, kde si uživatelé můžou zapisovat vlastní trénigy ,cviky a typy cviků
+### Program s uživatelskýmiu účty, kde si uživatelé můžou zapisovat vlastní tréninky ,cviky a typy cviků
 
 
 Každý uživatel má vlastní textový soubor se svímy přihlašovacímy údaji a ID(nepoužívá se). Když se uživatel přihlásí tak se jeho jméno zapíše dočasně do souboru ze kterého se bere pro další použití, po přihlášení se jméno přepíše.
